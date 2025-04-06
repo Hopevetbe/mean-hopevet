@@ -1,0 +1,29 @@
+<div class="login-layout">
+  <div class="login-page">
+    <div class="form">
+      <div class="login">
+        <div class="login-header">
+          <h3>LOGIN</h3>
+          <p>Please enter your credentials to login.</p>
+        </div>
+      </div>
+      <form autocomplete="off" class="login-form" [formGroup]="loginForm" (ngSubmit)="signIn()">
+        <input type="text" placeholder="username" formControlName="email" />
+        <div
+                *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.touched"
+                class="text-danger">
+                <span *ngIf="loginForm.controls.email.errors?.required">Email is required</span>
+                <span *ngIf="loginForm.controls.email.errors?.email">Please enter valid email</span>
+              </div>
+        <input type="password" placeholder="password" formControlName="password"/>
+        <div
+                *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.touched"
+                class="text-danger">
+                <span *ngIf="loginForm.controls.password.errors?.required">Password is required</span>
+                <span *ngIf="loginForm.controls.password.errors?.maxLength">Please enter valid password</span>
+              </div>
+              <div class="text-danger" *ngIf="errorMessage"><span>{{errorMessage}}</span></div>
+        <button [disabled]="!loginForm.valid"> login</button>
+      </form>
+    </div>
+  </div>

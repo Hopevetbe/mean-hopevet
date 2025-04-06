@@ -1,0 +1,79 @@
+
+  
+      <div id="letter-pad" *ngIf="responseData">
+  
+          <div class="header">
+              <h2>{{clinic.legalName}}</h2>
+                          <p>Phone: {{clinic.mobileNumber}} | Email:{{clinic.email}} </p>
+          </div>
+          <hr>
+  
+          <div class="doctor-info">
+              <p><strong>Dr {{doctor.doctorName ?? ''}}</strong></p>
+              <p> Hope Vet Clinic </p>
+          </div>
+           <hr>
+           <div class="patient-details">
+          <div class="patient-info">
+              <p>Pet Name :<strong>{{responseData.selectedPet.petName}} </strong></p>
+              <p>Pet Age  :<strong>{{responseData.selectedPet.petAge}} {{responseData.selectedPet.petAgeDetails}}</strong></p>
+          </div>
+          <div class="patient-info">
+              <p>Date  :<strong>{{responseData.visitedDate}}</strong> </p>
+               <p>Gender:<strong> {{responseData.selectedPet.petWeight}}</strong></p>
+          </div>
+          <div class="patient-info">
+              <p>Vaccinated  :<strong>{{responseData.vaccinationDetails.vaccinated ? 'YES':'NO'}}</strong> </p>
+               <p>Next Vaccination:<strong> {{responseData.vaccinationDetails.nextVaccination}}</strong></p>
+          </div>
+          
+          </div>
+          <hr>
+          <div class="diagnosis">
+              <h4>Diagnosis</h4>
+              <p>{{responseData.medicalRecords.remarks}}</p>
+            </div>
+          <div class="letter-body">
+            <table>
+            <thead>
+            <tr>
+            <th>Medicine Name</th>
+            <th>Dosage</th>
+            <th colspan="4">Duration</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Morning</th>
+                <th>Afternoon</th>
+                <th>Evening</th>
+                <th>Night</th>
+            </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of responseData.medicalRecords.medicine" >
+        <td>{{item.medicine}}</td>
+        <td>{{item.dosage}}</td>
+        <td>{{item.duration.morning}}</td>
+        <td>{{item.duration.afternoon}}</td>
+        <td>{{item.duration.evening}}</td>
+        <td>{{item.duration.night}}</td>
+    </tr>
+        
+        </tbody>
+    </table>
+          </div>
+  
+          <div class="signature">
+              <p>Sincerely,</p>
+              
+              <p>Dr. {{doctor.doctorName ?? ''}}<br>Internal Medicine Specialist</p>
+          </div>
+  
+      </div>
+  
+      <footer>
+          &copy; 2024 {{clinic.tradeName}}. All rights reserved.
+      </footer>
+  

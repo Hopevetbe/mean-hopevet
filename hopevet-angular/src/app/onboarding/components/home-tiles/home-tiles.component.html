@@ -1,0 +1,33 @@
+<section class="onboarding-layout primary-theme-bg">
+    <h2>Please login as doctor to access other pages<a (click)="logout()">click here</a></h2>
+    <div class="page-content">
+        <div class="page-left-col d-none d-lg-block">
+
+            <h1 class="heading text-center">Vet-Thrust</h1>
+            <img src="assets/images/veterinary.png" alt="Sample Template" class="sample-template-img" />
+        </div>
+        <div class="page-right-col">
+            
+            <div class="home-section">               
+                
+                <div class="container" *ngIf="clinicList">
+                    <ng-container *ngFor="let clinic of clinicList;let i= index">
+                  <div class="tiles"  *ngIf="!clinic.isAdmin" >
+                        <div class="icon">
+                            <i class="fa fa-medkit" aria-hidden="true"></i>
+                        </div>
+                        <h3>{{clinic.userName}}</h3>
+                    </div>
+                    </ng-container>
+                    
+                    <div class="tiles add-new" (click)="navigateToRegister()">
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <h3>Add new clinic Name</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,195 @@
+<section class="onboarding-layout primary-theme-bg">
+    <div class="container-fluid d-block d-lg-none mobile-header">
+
+    </div>
+    <div class="page-content">
+        <div class="page-left-col d-none d-lg-block">
+
+            <h1 class="heading text-center">Vet-Thrust</h1>
+            <img src="assets/images/veterinary.png" alt="Sample Template" class="sample-template-img" />
+        </div>
+        <div class="page-right-col">
+            <div class="onboarding-form-card card">
+                <app-form-outline>
+                    <h1 class="card-heading" cardHeader>Create Clinic</h1>
+                    <div cardBody>
+                        <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="registerUser()"
+                            class="custom-primary-form form-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- <div class="logo">
+                                        <img *ngIf="!imageURL" src="assets/images/default-user.svg" alt="User"
+                                            class="rounded-circle" />
+                                        <img *ngIf="imageURL" [src]="imageURL" alt="User" class="rounded-circle" />
+                                        <div class="file-upload">
+                                            <input type="file" accept="image/*" (change)="imagePreview($event)" />
+                                        </div>
+                                    </div> -->
+
+                                    <div class="form-group">
+                                        <label for="create-account-first-name" class="form-label">User Name*</label>
+                                        <input id="create-account-first-name" type="text" formControlName="userName"
+                                            class="form-control" placeholder="Enter your User Name" maxlength="20"
+                                            minlength="1" />
+                                        <div *ngIf="!registerForm.controls.userName.valid && registerForm.controls.userName?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.userName.errors?.required"
+                                                class="text-danger">Please
+                                                enter user name</small>
+                                            <small *ngIf="registerForm.controls.userName.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid user name</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-account-first-name" class="form-label">Doctor Name*</label>
+                                        <input id="create-account-first-name" type="text" formControlName="doctorName"
+                                            class="form-control" placeholder="Enter your Doctor Name" maxlength="20"
+                                            minlength="1" />
+                                        <div *ngIf="!registerForm.controls.doctorName.valid && registerForm.controls.doctorName?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.doctorName.errors?.required"
+                                                class="text-danger">Please
+                                                enter doctor name</small>
+                                            <small *ngIf="registerForm.controls.doctorName.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid doctor name</small>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label for="create-account-first-name" class="form-label">Trade Name*</label>
+                                        <input id="create-account-first-name" type="text" formControlName="tradeName"
+                                            class="form-control" placeholder="Enter your trade name" maxlength="20"
+                                            minlength="1" />
+                                        <div *ngIf="!registerForm.controls.tradeName.valid && registerForm.controls.tradeName?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.tradeName.errors?.required"
+                                                class="text-danger">Please
+                                                enter trade name</small>
+                                            <small *ngIf="registerForm.controls.tradeName.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid trade name</small>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="form-group">
+                                        <label for="create-account-first-name" class="form-label">Address*</label>
+                                        <input id="create-account-first-name" type="text" formControlName="address"
+                                            class="form-control" placeholder="Enter your address" maxlength="20"
+                                            minlength="1" />
+                                        <div *ngIf="!registerForm.controls.address.valid && registerForm.controls.address?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.address.errors?.required"
+                                                class="text-danger">Please
+                                                enter address </small>
+                                            <small *ngIf="registerForm.controls.address.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid address </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-account-first-name" class="form-label">Pan No*</label>
+                                        <input id="create-account-first-name" type="text" formControlName="panNo"
+                                            class="form-control" placeholder="Enter your pan number" maxlength="20"
+                                            minlength="1" />
+                                        <div *ngIf="!registerForm.controls.panNo.valid && registerForm.controls.panNo?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.panNo.errors?.required"
+                                                class="text-danger">Please
+                                                enter pan no </small>
+                                            <small *ngIf="registerForm.controls.panNo.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid pan no </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-account-first-name" class="form-label">GSTN*</label>
+                                        <input id="create-account-first-name" type="text" formControlName="gstn"
+                                            class="form-control" placeholder="Enter your GSTN" maxlength="20"
+                                            minlength="1" />
+                                        <div *ngIf="!registerForm.controls.gstn.valid && registerForm.controls.gstn?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.gstn.errors?.required"
+                                                class="text-danger">Please
+                                                enter gstn</small>
+                                            <small *ngIf="registerForm.controls.gstn.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid gstn</small>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label for="create-account-email" class="form-label">Email Address*</label>
+                                        <input id="create-account-email" type="email" autocomplete="off"
+                                            class="form-control" formControlName="email"
+                                            placeholder="Enter Email Address" maxlength="360" />
+                                        <div *ngIf="(!registerForm.controls.email.valid && registerForm.controls.email?.touched) || emailAlreadyExists"
+                                            class="text-danger fs12">
+                                            <small *ngIf="emailAlreadyExists">Email already exists</small>
+                                            <small *ngIf="registerForm.controls.email.errors?.required"
+                                                class="text-danger">Please
+                                                enter your email</small>
+                                            <small *ngIf="registerForm.controls.email.errors?.pattern"
+                                                class="text-danger">Please
+                                                provide a valid email address</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-account-email" class="form-label">Mobile Number</label>
+                                        <input id="create-account-mobile" type="text" autocomplete="off"
+                                            class="form-control" formControlName="mobileNumber"
+                                            placeholder="Enter Mobile number" [maxlength]="phoneLength"
+                                            [minlength]="maskValue ? '' : phoneLength" />
+                                        <div *ngIf="!registerForm.controls.mobileNumber.valid && registerForm.controls.mobileNumber?.touched"
+                                            class="text-danger fs12">
+                                            <small class="text-danger">Please enter valid mobile number</small>
+                                        </div>
+                                        <div class="text-danger fs12">
+                                            <span *ngIf="registerForm.errors?.mobileNumberNeeded">Please enter mobile
+                                                number</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-account-password" class="form-label">Password*</label>
+                                        <div class="input-group">
+                                            <input id="create-account-password" [type]="passwordType"
+                                                class="form-control" placeholder="Enter Password"
+                                                formControlName="password" maxlength="30" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text c-pointer">
+                                                    <img src="assets/images/eye-open.svg" alt="Show"
+                                                        (click)="passwordType = 'password'"
+                                                        *ngIf="passwordType === 'text'" />
+                                                    <img src="assets/images/eye-close.svg" alt="Hide"
+                                                        (click)="passwordType = 'text'"
+                                                        *ngIf="passwordType === 'password'" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <password-strength *ngIf="registerForm.value.password"
+                                            [password]="registerForm.value.password"></password-strength>
+                                        <div *ngIf="!registerForm.controls.password.valid && registerForm.controls.password?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="registerForm.controls.password.errors?.required"
+                                                class="text-danger">Please
+                                                enter password</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-action position-relative mt-3">
+                                        <button class="btn btn-primary-light-blue create-btn"
+                                            [disabled]="!registerForm.valid">
+                                            Continue
+                                            <span [hidden]="!isCreatingAccount" class="circle-loader text-end"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <h2 class="footer-content" cardFooter>
+                        Back to home <a href="javascript:void(0)" routerLink="/home" class="link-text">Home</a>
+                    </h2>
+                </app-form-outline>
+            </div>
+        </div>
+    </div>
+</section>

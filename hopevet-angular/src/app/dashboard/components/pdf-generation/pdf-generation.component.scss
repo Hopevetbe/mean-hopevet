@@ -1,0 +1,51 @@
+#letter-pad {
+    width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border:1px solid #000;
+}
+
+.header {
+    text-align: center;
+}
+
+.doctor-info {
+    margin-top: 0px;
+}
+
+.patient-info {
+    margin-top: 0px;
+}
+
+.letter-body {
+    margin-top: 5px;
+}
+
+.signature {
+    margin-top: 50px;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+
+}
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+th, td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: left;
+}
+.patient-details{
+  display:flex; 
+  justify-content: space-between; 
+  padding:-20px;
+}

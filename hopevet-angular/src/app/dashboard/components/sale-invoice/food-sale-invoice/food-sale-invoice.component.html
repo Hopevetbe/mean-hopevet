@@ -1,0 +1,63 @@
+<div id="invoice">
+    <header>
+        <h1>Medical Invoice</h1>
+    </header>
+
+    <div class="hospital-details">
+        <p><strong>Hospital Name:</strong> {{clinic.legalName}}</p>
+        <p><strong>Address:</strong>{{clinic.address}}</p>
+        <p><strong>Contact:</strong> {{clinic.mobileNumber}}</p>
+    </div>
+
+    <div class="invoice-details">
+        <p><strong>Invoice Number:</strong> {{responseData.petStoreValues.invoiceInfo.invoiceNumber}}</p>
+        <p><strong>Date:</strong>{{responseData.petStoreValues.invoiceInfo.invoiceDate}}</p>
+        <p><strong>Customer:</strong> {{client.clientName}}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>PRODUCT NAME</th>
+                <th>HSN</th>
+                <th>BATCH</th>
+                <th>EXP</th>
+                <th>QUANTITY</th>
+                <th>MRP/unit</th>
+                <th>GST</th>
+                <th>AMOUNT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of responseData.medicineToDisplay">
+                <td>{{item.productName}}</td>
+                <td>{{item.hsn}}</td>
+                <td>{{item.batch}}</td>
+                <td>{{item.exp}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.mrp.toFixed(2)}}</td>
+                <td>{{item.gst}}</td>
+                <td>{{item.amount.toFixed(2)}}</td>
+
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">Subtotal</td>
+                <td>{{subTotal.toFixed(2)}}</td>
+            </tr>
+            <tr>
+                <td colspan="7">GST Total</td>
+                <td>{{totalGst.toFixed(2)}}</td>
+            </tr>
+            <tr>
+                <td colspan="7"><strong>Total</strong></td>
+                <td><strong>{{grandTotal.toFixed(2)}}</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="footer">
+        <p>Thank you for choosing our medical services!</p>
+    </div>
+</div>

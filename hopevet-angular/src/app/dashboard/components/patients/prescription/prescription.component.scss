@@ -1,0 +1,251 @@
+@page {
+    margin: 0;
+    padding: 0;
+    div {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
+}
+.template-layout20 {
+    width: 100%;
+    margin: auto;
+    background-color: #fff;
+    -webkit-print-color-adjust: exact;
+    min-height: calc(100vh - 18vh);
+    padding-bottom: 100px;
+    .link-text,
+    .link-text:hover {
+    text-decoration: none;
+    color: inherit;
+    }
+    .personal-details-col {
+        text-align: center;
+        .profile-info {
+            margin-top: 25px;
+            margin-bottom: 4px;
+            .username {
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+                font-style: normal;
+                font-size: 16px;
+                line-height: 20px;
+                color: #2E2F31;
+                text-transform: capitalize;
+            }
+            .designation
+            {
+                font-family: 'Inter', sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 12px;
+                line-height: 20px;
+                color: #2E2F31;
+                text-transform: capitalize;
+            }
+            .location
+            {
+                font-family: 'Inter', sans-serif;
+                font-weight: 500;
+                font-style: normal;
+                font-size: 12px;
+                line-height: 20px;
+                color: #101214;
+                text-transform: capitalize;
+            }
+        }
+        .contact-info {
+            display: flex;
+            border-bottom: 1px solid #101214;
+            margin: 0px 40px 0px 40px;
+            line-height: 30px;
+          .contact-email
+          {
+              width:50%;
+              margin: 0px 40px 0px 0px;
+              text-align: start;
+              font-family: 'Inter', sans-serif;
+              font-weight: 400;
+              font-style: normal;
+              font-size: 12px;
+              color:#101214;
+          }
+          .contact-phone
+          {
+            width:50%;
+            margin: 0px 0px 0px 40px;
+            text-align: end;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 12px;
+            color:#101214;
+          }
+        }
+    }
+    .profesion-detail-col {
+        margin: 0px 40px;
+    }
+    .detail-col {
+        .summary-content {
+            line-height: 20px;
+            text-align: justify;
+            .profile-content
+            {
+                font-family: 'Inter', sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 12px;
+                color:#101214;
+                word-break: break-word;
+                
+                ::ng-deep * {
+                    font-family: "Inter", sans-serif !important;
+                    font-size: 12px !important;
+                    color: #101214 !important;
+                    word-break: break-word !important;
+                    
+                 }
+                 ::ng-deep ul {
+                    padding-left: 1.5rem;
+                  }
+                  ::ng-deep ol {
+                    padding-left: 1.5rem;
+                  }
+            }
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            border : 1px solid #000000;
+            td
+            {
+                font-family: 'Inter', sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                color: #2C2C2C;
+            }
+            td, th {
+                text-align: center;
+                padding: 8px;
+                border-right: 1px solid #000000;
+              }
+              th {
+                background-color: #dddddd;
+                font-family: 'Inter', sans-serif;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                color: #2C2C2C;
+                margin: 0px 0px 3px;
+              }
+              tr
+              {
+                  border-bottom: 1px solid #E6E6E6;
+                  &:last-child
+                  {
+                    border-bottom: 1px solid #000000;
+                  }
+              }
+          }
+        .custom-list
+        {
+            // display: flex;
+            // columns: 4;
+             padding-left: 22px;
+            // margin-bottom: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            
+            li
+            {
+                 
+                padding-right: 40px;
+                font-family: 'Inter', sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 12px;
+                color:#101214;
+                margin-bottom:0.5rem;
+            }
+        }
+        .custom-list-horizontal{
+        padding-left: 22px;
+        li
+        {
+            padding-right: 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 12px;
+            color:#101214;
+            line-height: 25px;
+        }
+    }
+    }
+    .custom-heading {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px 0px 0px 0px;
+        font-style: normal;
+        font-weight: 700;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        line-height: 15px;
+        color: #2C2C2C;
+        -webkit-print-color-adjust: exact;
+        border-bottom: 2px solid #2C2C2C;
+        width: fit-content;
+        }
+        .custom-sub-heading
+        {
+            font-style: normal;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            line-height: 12px;
+            color: #101214;
+        }
+        .custom-subpart-heading
+        {
+            font-style: normal;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            line-height: 12px;
+            color: #101214;
+        }
+        .custom-label-heading
+        {
+            font-style: normal;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            line-height: 12px;
+            color: #73808D;
+        }
+}
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width:100%;
+    border:none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 25px 0;
+    background: linear-gradient(45deg,#328f8a,#08ac4b);
+    transition: all 0.3s linear;
+    cursor: pointer;
+    i{
+        padding: 10px;
+    }
+    &:hover {
+        background: linear-gradient(45deg,#06efe4,#13f471);
+    }
+}

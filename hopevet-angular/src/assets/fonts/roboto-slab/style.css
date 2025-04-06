@@ -1,0 +1,39 @@
+
+    @font-face {
+    font-family: 'Roboto Slab Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Roboto Slab Regular'), url('RobotoSlab-Regular.woff') format('woff');
+    }
+    
+
+    @font-face {
+    font-family: 'Roboto Slab Thin';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Roboto Slab Thin'), url('RobotoSlab-Thin.woff') format('woff');
+    }
+    
+
+    @font-face {
+    font-family: 'Roboto Slab Light Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Roboto Slab Light Italic'), url('RobotoSlab-LightItalic.woff') format('woff');
+    }
+    
+
+    @font-face {
+    font-family: 'Roboto Slab Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Roboto Slab Light'), url('RobotoSlab-Light.woff') format('woff');
+    }
+    
+
+    @font-face {
+    font-family: 'Roboto Slab Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Roboto Slab Bold'), url('RobotoSlab-Bold.woff') format('woff');
+    }

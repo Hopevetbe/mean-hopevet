@@ -1,0 +1,86 @@
+
+       
+    
+  
+    
+        <div id="invoice">
+            <header>
+                <h1>Purchase Invoice</h1>
+            </header>
+            <div style="display: flex;justify-content: space-between;">
+            <div class="hospital-details" >
+            <p><strong>Hospital Name:</strong> {{clinic.legalName}}</p>
+            <p><strong>Address:</strong>{{clinic.address}}</p>
+            <p><strong>Contact:</strong> {{clinic.mobileNumber}}</p>
+            </div>
+    
+            <div class="invoice-details" >
+                <p><strong>Invoice Number:</strong>{{responseData.purchase.purchaseBillInfo.purchaseOrderNumber}}</p>
+                <p><strong>Date:</strong>{{responseData.purchase.purchaseBillInfo.purchaseOrderDate}}</p>
+                <p><strong>Supplier:</strong> {{supplier.companyName}}</p>
+            </div>
+            </div>
+    
+            <table >
+                <thead>
+                    <tr>
+                    <th>Mfg</th>
+                    <th>Hsn</th>
+                    <th>Item Name</th>
+                    <th>Batch</th>
+                    <th>Expiry</th>
+                    <th>Pack</th>
+                    <th>Mrp</th>
+                    <th>Free Quantity</th>
+                    <th>Billed Quantity</th>                    
+                    <th>Rate</th>
+                    <th>Discount</th>
+                    <th>Sch %</th>
+                    <th>Value</th>
+                    <th>Taxable Value</th>
+                    <th>GST(%)</th>
+                    <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of responseData.purchase.itemsList;">
+                <td>{{item.mktBy}}</td>
+                <td>{{item.hsn}}</td>
+                <td>{{item.itemName}}</td>
+                <td>{{item.batch}}</td>
+                <td>{{item.expDate}}</td>
+                <td>{{item.pack}}</td>
+                <td>{{item.mrp}}</td>
+                <td>{{item.quantity.freeQuantity}}</td>
+                <td>{{item.quantity.billingQuantity}}</td>
+                <td>{{item.purchasePrice}}</td>
+                <td>{{item.discount}}</td>
+                <td>{{item.sch}}</td>
+                <td>{{item.value}}</td>
+                <td>{{item.taxableValue}}</td>
+                <td>{{item.gst}}</td>
+                <td>{{item.totalAmount}}</td>
+            </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="15">Subtotal</td>
+                        <td>{{responseData.grandTotal}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="15">GST Total</td>
+                        <td>{{responseData.totalGSTAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="15"><strong>Total</strong></td>
+                        <td><strong>{{responseData.purchase.totalBillAmount}}</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+    
+            <div class="footer">
+                <p>Thank you for choosing our medical services!</p>
+            </div>
+        </div>
+    
+  

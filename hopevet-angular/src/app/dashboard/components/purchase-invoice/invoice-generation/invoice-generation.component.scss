@@ -1,0 +1,59 @@
+
+#invoice {
+    max-width: auto;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#invoice header {
+    text-align: center;
+}
+
+#invoice h1 {
+    color: #333;
+}
+
+#invoice .hospital-details {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+#invoice .hospital-details p {
+    margin: 5px 0;
+}
+
+#invoice .invoice-details {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+#invoice .invoice-details p {
+    margin: 5px 0;
+}
+
+#invoice table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+#invoice th, #invoice td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #000;
+}
+
+#invoice tfoot {
+    font-weight: bold;
+}
+
+#invoice .footer {
+    margin-top: 20px;
+    text-align: right;
+}
+table{
+    font-size: 16px;
+}

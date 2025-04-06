@@ -1,0 +1,159 @@
+<div class="account-management">
+    <div class="wrapper">
+        <div class="box">
+            <input checked="checked" id="box1" name="box" type="radio">
+            <label for="box1" class="formLabel">MEDICINE</label>
+            <div class="content">
+                <div class="patient-layout">
+                    <div class="container">
+                        <form [formGroup]="mediForm" *ngIf="mediForm">
+                            <div class="form first">
+                                <div class="details personal">
+                                    <span class="title">Medicine</span>
+                                    <div class="fields">
+                                        <div class="input-fields">
+                                            <label>Legal Name</label>
+                                            <input type="text" formControlName="legalName"
+                                                placeholder="Enter legal Name">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>Trade Name</label>
+                                            <input type="text" formControlName="tradeName"
+                                                placeholder="Enter trade Name">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>PAN Number</label>
+                                            <input type="text" formControlName="panNo" placeholder="Enter panNo">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>GSTN</label>
+                                            <input type="text" formControlName="gstn" placeholder="Enter gstn">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>Mobile Number</label>
+                                            <input type="number" formControlName="mobileNumber"
+                                                placeholder="Enter your phone number">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>Email</label>
+                                            <input type="email" formControlName="email" placeholder="Enter email">
+                                        </div>
+
+                                        <div class="input-fields">
+                                            <label>Address</label>
+                                            <textarea formControlName="address" placeholder="Enter address"></textarea>
+                                            <!-- <input type="text" formControlName="address" placeholder="Enter address"> -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="add-button">
+                                        <i class="fas fa-plus icon"></i>
+                                        <a href="javascript:void(0)" (click)="saveMediDetails()">Save Details</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <input id="box2" name="box" type="radio">
+            <label for="box2" class="formLabel">FOODS</label>
+            <div class="content">
+                <div class="patient-layout">
+                    <div class="container">
+                        <form [formGroup]="petClinicForm" *ngIf="petClinicForm">
+                            <div class="form first">
+                                <div class="details personal">
+                                    <span class="title">Foods</span>
+                                    <div class="fields">
+                                        <div class="input-fields">
+                                            <label>Legal Name</label>
+                                            <input type="text" formControlName="legalName"
+                                                placeholder="Enter legal Name">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>Trade Name</label>
+                                            <input type="text" formControlName="tradeName"
+                                                placeholder="Enter trade Name">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>PAN Number</label>
+                                            <input type="text" formControlName="panNo" placeholder="Enter panNo">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>GSTN</label>
+                                            <input type="text" formControlName="gstn" placeholder="Enter gstn">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>Mobile Number</label>
+                                            <input type="number" formControlName="mobileNumber"
+                                                placeholder="Enter your phone number">
+                                        </div>
+                                        <div class="input-fields">
+                                            <label>Email</label>
+                                            <input type="email" formControlName="email" placeholder="Enter email">
+                                        </div>
+
+                                        <div class="input-fields">
+                                            <label>Address</label>
+                                            <textarea formControlName="address" placeholder="Enter address"></textarea>
+                                            <!-- <input type="text" formControlName="address" placeholder="Enter address"> -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="add-button">
+                                        <i class="fas fa-plus icon"></i>
+                                        <a href="javascript:void(0)" (click)="savePetDetails()">Save Details</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showResponse">
+<div class="modal fade show" style="display:block!important;" *ngIf="success">
+    <div class="modal-dialog  modal-dialog-centered modal-md">
+        <div class="modal-content modal-confirm">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                
+            </div>
+            <div class="modal-body text-center">
+                <h4 >Details Updated</h4>
+               
+                <p class="text-success">Successfully </p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade show" style="display:block!important;" *ngIf="errorAlert">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-reject ">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+                <h4>Sorry</h4>
+                <p class="text-danger">Something went wrong. Try again</p>
+                <p></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,206 @@
+<div class="header-wrapper">
+    <div class="header-title">
+        <span>Primary</span>
+        <h3>Dashboard</h3>
+    </div>
+    <div class="user-info">
+        <div class="search-bar" *ngIf="showText">
+            <!-- <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search"> -->
+
+            <a (click)="navigateToAccountManagement()">
+                <marquee>Please update clinic and store details click here</marquee>
+            </a>
+
+        </div>
+        <img src="../../assets/images/builder-cover.png" alt="" (click)="navigateToAccountManagement()">
+    </div>
+</div>
+<div class="card--container">
+    <h4 class="main--title">Today's Data</h4>
+    <div class="card--wrapper" *ngIf="counters">
+        <div class="payment--card light-red">
+            <div class="card-header">
+                <div class="amount">
+                    <span class="title">
+                        Total Medicine sales for {{todayDate | date:'dd/mm/yy'}}
+                    </span>
+                    <span class="amount-value">₹{{counters.medicineSale?.medicineSaleTodayAmount}}</span>
+                </div>
+                <i class="fas fa-inr icon"></i>
+
+            </div>
+            <span class="card-detail">Last sale: ₹{{counters.medicineSale?.medicineSaleYesterdayAmount}}</span>
+
+        </div>
+        <div class="payment--card light-purple">
+            <div class="card-header">
+                <div class="amount">
+                    <span class="title">
+                        Today Purchase
+                    </span>
+                    <span class="amount-value"> ₹ {{counters.purchase?.purchaseTodayAmount}}</span>
+                </div>
+                <i class="fas fa-inr icon dark-purple"></i>
+
+            </div>
+            <span class="card-detail">Last Purchase: ₹ {{counters.purchase?.purchaseYesterdayAmount}}</span>
+
+        </div>
+        <div class="payment--card light-green">
+            <div class="card-header">
+                <div class="amount">
+                    <span class="title">
+                        Total Cases
+                    </span>
+                    <span class="amount-value">{{counters.cases?.totalCasesToday}}</span>
+                </div>
+                <i class="fas fa-users icon dark-green"></i>
+
+            </div>
+            <span class="card-detail">Yesterday : {{counters.cases?.totalCasesYesterday}}</span>
+
+        </div>
+        <div class="payment--card light-blue">
+            <div class="card-header">
+                <div class="amount">
+                    <span class="title">
+                        Total Vaccination
+                    </span>
+                    <span class="amount-value">{{counters.cases?.totalVaccinationToday}}</span>
+                </div>
+                <i class="fa-solid fa-syringe icon dark-blue"></i>
+
+            </div>
+            <span class="card-detail">Yesterday : {{counters.cases?.totalVaccinationYesterday}}</span>
+
+        </div>
+        <div class="payment--card light-sky-blue">
+            <div class="card-header">
+                <div class="amount">
+                    <span class="title">
+                        Total consultation amount
+                    </span>
+                    <span class="amount-value">₹{{counters.consultationAmount?.consultationTodayAmount}}</span>
+                </div>
+                <i class="fas fa-inr icon dark-sky-blue"></i>
+
+            </div>
+            <span class="card-detail">Yesterday: ₹{{counters.consultationAmount?.consultationYesterdayAmount}}</span>
+
+        </div>
+        <div class="payment--card light-pink">
+            <div class="card-header">
+                <div class="amount">
+                    <span class="title">
+                        Total Pet store sales
+                    </span>
+                    <span class="amount-value">₹{{counters.petStoreSale.petStoreSaleTodayAmount}}</span>
+                </div>
+                <i class="fas fa-inr icon dark-pink"></i>
+
+            </div>
+            <span class="card-detail">Yesterday: ₹{{counters.petStoreSale.petStoreSaleYesterdayAmount}}</span>
+
+        </div>
+    </div>
+</div>
+<div class="card--container" *ngIf="counters">
+    <h4 class="main--title">Stock Details</h4>
+    <p>
+        <a class="btn btn-danger" data-bs-toggle="collapse" href="#expiryStock" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            Expiry Stocks
+        </a>
+        <!-- <a class="btn btn-success" data-bs-toggle="collapse" href="#fastMovingStock" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            Fast moving Stocks
+        </a>
+        <a class="btn btn-warning" data-bs-toggle="collapse" href="#nonMovingStock" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            Non moving Stocks
+        </a> -->
+
+    </p>
+    <div class="collapse" id="expiryStock">
+        <div class="card card-body">
+            <div class="tabular-wrapper">
+                <h3 class="main--title">Expiry Stocks</h3>
+                <div class="table-container">
+                    <div class="m-2" style="float: right;">
+                        <button (click)="exportexcel()">Export to Excel</button>
+                        </div>
+                    <table id="excel-table">
+                        <thead>
+                            <tr>
+                                <th>HSN</th>
+                                <th>Batch</th>
+                                <th>Item Name</th>
+                                <th>MktBy</th>
+                                <th class="highlights">ExpDate</th>
+                                <th>Pack</th>
+                                <th>MRP</th>
+                                <th class="highlights">Available Quantity</th>
+                                <th>GST</th>
+                                <th>SCH</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="counters.stocks && counters.stocks.length >0">
+                            <tr *ngFor="let stock of counters.stocks">
+                                <td>{{stock.hsn}}</td>
+                                <td>{{stock.batch}}</td>
+                                <td>{{stock.itemName}}</td>
+                                <td>{{stock.mktBy}}</td>
+                                <td class="highlights">{{stock.expDate}}</td>
+                                <td>{{stock.pack}}</td>
+                                <td>{{stock.mrp}}</td>
+                                <td class="highlights">{{stock.availableQuantity}}</td>
+                                <td>{{stock.gst}}</td>
+                                <td>{{stock.sch}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="collapse" id="fastMovingStock">
+        <div class="card card-body">
+            <div class="tabular-wrapper">
+                <h3 class="main--title">Frequently Moving Stocks</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>HSN</th>
+                                <th>Batch</th>
+                                <th>Item Name</th>
+                                <th>MktBy</th>
+                                <th class="highlights">ExpDate</th>
+                                <th>Pack</th>
+                                <th>MRP</th>
+                                <th class="highlights">Available Quantity</th>
+                                <th>GST</th>
+                                <th>SCH</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="counters.stocks && counters.stocks.length >0">
+                            <tr *ngFor="let stock of counters.stocks">
+                                <td>{{stock.hsn}}</td>
+                                <td>{{stock.batch}}</td>
+                                <td>{{stock.itemName}}</td>
+                                <td>{{stock.mktBy}}</td>
+                                <td class="highlights">{{stock.expDate}}</td>
+                                <td>{{stock.pack}}</td>
+                                <td>{{stock.mrp}}</td>
+                                <td class="highlights">{{stock.availableQuantity}}</td>
+                                <td>{{stock.gst}}</td>
+                                <td>{{stock.sch}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>

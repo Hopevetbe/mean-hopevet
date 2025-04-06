@@ -1,0 +1,333 @@
+
+
+<div class="patient-layout" *ngIf="!loader && !downloadPrescription">
+    <div class="container">
+        <header>Patient</header>
+        <ng-container *ngIf="!prescription">
+        <form [formGroup]="patientForm" *ngIf="firstForm">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Pet Basic Details</span>
+                    <div class="fields">
+                        <div class="input-fields">
+                            <label>Owner Name <span class="text-danger fs12">*</span></label>
+                            <input type="text" formControlName="ownerName" placeholder="Enter Owner Name">
+                            <div *ngIf="!patientForm.controls.ownerName.valid && patientForm.controls.ownerName?.touched" class="text-danger fs12">
+                                <small *ngIf="patientForm.controls.ownerName.errors?.required" class="text-danger">Please
+                                    enter owner name </small>
+                                <small *ngIf="patientForm.controls.ownerName.errors?.pattern" class="text-danger">Please
+                                    enter valid owner name </small>
+                            </div>
+                        </div>
+                        <div class="input-fields">
+                            <label>Phone Number <span class="text-danger fs12">*</span></label>
+                            <app-search [ownerList]="filteredOwnerOption" [searchTerm]="searchOwnerTerm" (searchTermEmitted)="changeOwnerSearch($event)" ngDefaultControl
+                            formControlName="phoneNumber" (touched)="touched($event)" (newItemEvent)="changeEvent($event)"></app-search>
+                            <div *ngIf="!patientForm.controls.phoneNumber.valid && patientForm.controls.phoneNumber?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="patientForm.controls.phoneNumber.errors?.required"
+                                                class="text-danger">Please
+                                                enter phone number </small>
+                                            <small *ngIf="patientForm.controls.phoneNumber.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid phone number </small>
+                                        </div>
+                            <!-- <input type="number" formControlName="phoneNumber"> -->
+                        </div>
+                        <div class="input-fields">
+                            <label>Email</label>
+                            
+                            <input type="email" formControlName="email" placeholder="Enter email">
+                            <!-- <div *ngIf="!patientForm.controls.email.valid && patientForm.controls.email?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="patientForm.controls.email.errors?.required"
+                                                class="text-danger">Please
+                                                enter email </small>
+                                            <small *ngIf="patientForm.controls.email.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid email </small>
+                                        </div> -->
+                        </div>
+
+                        <div class="input-fields">
+                            <label>Address</label>
+                            <input type="text" formControlName="address" placeholder="Enter address">
+                            <!-- <div *ngIf="!patientForm.controls.address.valid && patientForm.controls.address?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="patientForm.controls.address.errors?.required"
+                                                class="text-danger">Please
+                                                enter address </small>
+                                            <small *ngIf="patientForm.controls.address.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid address </small>
+                                        </div> -->
+                        </div>
+                    </div>
+
+                    <ng-container formArrayName="petDetails">
+                        <ng-container *ngFor="let pet of petDetailsArray.controls; index as i">
+                            <div class="pet-card" *ngIf="!pet.value.isOpen">
+                                <div class="pet-name-card">
+                                    <label for="i">{{pet.value.petName}}</label>
+                                    <div class="category-age">
+                                    <p>{{pet.value.category}}</p>
+                                    <p>{{pet.value.petAge}}</p>
+                                    </div>
+                                    <input type="radio" name="selectedPet" value="{{pet.value.petName}}" (change)="onSelectedPet(i,pet.value)">
+                                    
+                                </div>
+                            </div>
+                            <div class="close" *ngIf="pet.value.isOpen"><i class="fas fa-close icon" (click)="removePet(i)"></i></div>
+                            <div class="fields" *ngIf="pet.value.isOpen">
+                                
+                                <div class="input-fields" [formGroupName]="i">
+                                    <label>Category <span class="text-danger fs12">*</span></label>
+                                    <select (change)="category($event,i)" formControlName="category">
+                                        <option value="">---Select Category---</option>
+                                        <option value="cat">Cat</option>
+                                        <option value="dog">Dog</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                    <!-- <div *ngIf="!pet['controls'].category.valid && pet['controls'].category?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="pet['controls'].category.errors?.required"
+                                                class="text-danger">Please
+                                                select category </small>
+                                            <small *ngIf="pet['controls'].category.errors?.pattern"
+                                                class="text-danger">Please
+                                                select valid category </small>
+                                        </div> -->
+                                </div>
+                                <div class="input-fields" *ngIf="others[i]">
+                                    <label>Category Details <span class="text-danger fs12">*</span></label>
+                                    <input type="text" placeholder="Enter category">
+                                    
+                                </div>
+
+                                <div class="input-fields" [formGroupName]="i">
+                                    <label>Pet Name <span class="text-danger fs12">*</span></label>
+                                    <input type="text" formControlName="petName" placeholder="Enter Pet Name">
+                                    <!-- <div *ngIf="patientForm.get('petDetails')?.get(i.toString())?.get('petName')?.invalid && patientForm.get('petDetails')?.get(i.toString())?.get('petName')?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="patientForm.get('petDetails')?.get(i.toString())?.get('petName')?.errors?.required"
+                                                class="text-danger">Please
+                                                enter pet Name </small>
+                                            <small *ngIf="patientForm.get('petDetails')?.get(i.toString())?.get('petName')?.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid pet Name </small>
+                                        </div> -->
+                                </div>
+                                <div class="input-fields" [formGroupName]="i">
+                                    <label>Pet Gender</label>
+                                    <select formControlName="petWeight">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <!-- <input type="text" formControlName="petWeight" placeholder="Enter Pet Weight"> -->
+                                    <!-- <div *ngIf="!pet['controls'].petWeight.valid && pet['controls'].petWeight?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="pet['controls'].petWeight.errors?.required"
+                                                class="text-danger">Please
+                                                enter pet weight </small>
+                                            <small *ngIf="pet['controls'].petWeight.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid pet weight </small>
+                                        </div> -->
+                                </div>
+                                <div class="input-fields" [formGroupName]="i">
+                                    <label>Pet Age </label>
+                                    <div class="input-group mb-3">
+                                        
+                                        <input type="text" class="form-control small" formControlName="petAge">
+                                        <select formControlName="petAgeDetails">
+                                            <option value="Days">Days</option>
+                                            <option value="Months">Months</option>
+                                            <option value="Years">Years</option>
+                                        </select>
+                                    </div>
+                                    <!-- <input type="text" formControlName="petAge" placeholder="Enter Pet Age"> -->
+                                    <!-- <div *ngIf="!pet['controls'].petAge.valid && pet['controls'].petAge?.touched"
+                                            class="text-danger fs12">
+                                            <small *ngIf="pet['controls'].petAge.errors?.required"
+                                                class="text-danger">Please
+                                                enter pet age </small>
+                                            <small *ngIf="pet['controls'].petAge.errors?.pattern"
+                                                class="text-danger">Please
+                                                enter valid pet age </small>
+                                        </div> -->
+                                </div>
+
+
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <div class="add-button">
+                        <i class="fas fa-plus icon"></i>
+                        <a href="javascript:void(0)" (click)="addPet()">Add Pet</a>
+                    </div>
+
+                </div>
+                <div *ngIf="throwError" class="text-danger fs12">
+                    Please select Pet
+                </div>
+                <!-- <div class="image">
+                    <app-web-camera1></app-web-camera1>
+                </div> -->
+                <div class="details personal">
+                    <button class="nextBtn" [disabled]="patientForm.invalid" (click)="savePatient()">
+                        <span class="btnText">Next</span>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        
+        <form [formGroup]="casePatientForm" *ngIf="!firstForm">
+            <div class="form first">
+                <button class="nextBtn" *ngIf="oldMedicalRecord" (click)="prescription=true">
+                    <span class="btnText">Previous prescription</span>
+                </button>
+                <div class="details personal">
+                    <span class="title">Case</span>
+                    <div class="selected-pet-details">
+                        <div class="inner-pet-details">
+                            <h1>Pet Name: <span>{{selectedPet.petName}}</span></h1>
+                            <p>Gender: <span>{{selectedPet.petWeight}}</span></p>
+                            <p>Age: <span>{{selectedPet.petAge}}{{selectedPet?.petAgeDetails}}</span></p>
+                            <div class="vaccination-date">
+                                <h2>Last Vaccination Date: <span>{{lastVaccinationDate}}</span></h2>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="fields">
+                        <div class="input-fields">
+                            <label>Vaccination</label>
+                            <label class="switch">
+                                <input type="checkbox" formControlName="Vaccination" value="true">
+                                <span class="slider round"></span>
+                              </label>
+                        </div>
+                        <div class="input-fields">
+                            <label>Next Vaccination Date</label>
+                            <input type="date" formControlName="nextVaccinationDate">
+                        </div>
+                        
+                    </div>
+                    <ng-container formArrayName="medicines">
+
+                        <ng-container *ngFor="let med of medicinesArray.controls; index as i">
+                    <div class="fields" *ngIf="med.value.isShow">
+                        <div class="input-fields" [formGroupName]="i">
+                            <label>Medicine</label>
+                            <input type="text" formControlName="medicine">
+                        </div>
+                        <div class="input-fields" [formGroupName]="i">
+                            <label>Dosage</label>
+                            <input type="text" formControlName="dosage">
+                        </div>
+                        <div class="input-fields" [formGroupName]="i">
+                            <label>Duration</label>
+                            <div class="input-group mb-3" style="margin-top:15px">
+                                <input type="text" class="form-control small" formControlName="morning" placeholder="M">
+                                <input type="text" class="form-control small" formControlName="afternoon" placeholder="A">
+                                <input type="text" class="form-control small" formControlName="evening" placeholder="E">
+                                <input type="text" class="form-control small" formControlName="night" placeholder="N">
+                            </div>
+                        </div>
+                        <div class="add-button">
+                            <i class="fas fa-plus icon"></i>
+                            <a href="javascript:void(0)" (click)="addMedicine()">Add Medicine</a>
+                        </div>
+                    </div>
+                    </ng-container>
+                    </ng-container>
+                    <div class="tabular-wrapper">
+                        <h3 class="main--title"> Medicine</h3>
+                        
+                        <div class="table-container mt-4">
+                            <table>
+                                <thead>
+                                    <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Dosage</th>
+                                    <th colspan="4">Duration</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Morning</th>
+                                        <th>Afternoon</th>
+                                        <th>Evening</th>
+                                        <th>Night</th>
+                                    </tr>
+
+                                </thead>
+                                    <tbody *ngIf="medicinesArray.value && medicinesArray.value.length>0">
+                                        <tr *ngFor="let med of medicinesArray.controls; index as i">
+                                            <td class="small-width">{{med.value.medicine}}</td>
+                                            <td>{{med.value.dosage}}</td>
+                                            <td>{{med.value.morning}}</td>
+                                            <td>{{med.value.afternoon}}</td>
+                                            <td>{{med.value.evening}}</td>
+                                            <td>{{med.value.night}}</td>
+                                        </tr>
+                                    </tbody>
+                               
+                            </table>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="input-fields">
+                            <label>Remarks</label>
+                            <textarea formControlName="remarks"></textarea>
+                        </div> 
+                    </div>
+                                     
+
+                </div>
+                <!-- <div class="image">
+                    <app-web-camera1></app-web-camera1>
+                </div> -->
+                <div class="two-buttons">
+                    <button class="nextBtn" [disabled]="patientForm.invalid" (click)="firstForm= true">
+                        <span class="btnText">Previous</span>
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="nextBtn" [disabled]="patientForm.invalid" (click)="preview()">
+                        <span class="btnText">Print</span>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+        <div id="pdfTable" #pdfTable *ngIf="prescription">
+            <app-prescription [patientDetails]="oldMedicalRecord"></app-prescription>
+        </div>
+        <button *ngIf="prescription" class="nextBtn" (click)="prescription=false"> <span class="btnText">Go Back</span></button> 
+
+    </div>
+</div>
+<div class="loader-center" *ngIf="loader">
+<div class="loader"></div>
+</div>
+
+
+<div class="patient-layout" *ngIf="downloadPrescription">
+    <div class="container">
+        <div #downloadableContent >
+            <app-pdf-generation [responseData]="prescriptionResponse" [doctor]="doctor" [clinic]="clinic"></app-pdf-generation>
+            
+        </div>
+        <div class="d-flex justify-content-center" style="gap:5px">
+            <button class="nextBtn" (click)="downloadAsPDF()"> <span class="btnText">Download Prescription</span></button>
+            <button class="go-back" (click)="refreshComponent()"> <span class="btnText">New Prescription</span></button>
+        </div>
+        
+    </div>
+</div>
+    
+    
+    
+
+

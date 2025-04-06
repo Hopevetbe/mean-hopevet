@@ -1,0 +1,8 @@
+<div class="typeahead-container">
+  <input type="text" [(ngModel)]="searchTerm" (blur)="blur()"  (input)="onInputChange()">
+  <ul *ngIf="showDropdown" class="typeahead-dropdown">
+    <li *ngFor="let option of filteredOptions" (click)="onOptionSelect(option)">
+      {{ option.name }}
+    </li>
+  </ul>
+</div>

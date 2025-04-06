@@ -1,0 +1,68 @@
+<div id="htmlpdf" #htmlpdf>
+    <div class="template-layout20">
+      <div class="personal-details-col">
+        <div class="profile-info"
+          >
+          <h1 class="username" > <b>Name: </b>
+            {{patientDetails.selectedPet.petName}}</h1>
+          <h2 class="designation"><b>Age:</b> {{patientDetails.selectedPet.petAge}} {{patientDetails.selectedPet?.petAgeDetails}}</h2>
+          <h2 class="location"><b> Gender:</b>
+            {{patientDetails.selectedPet.petWeight}}
+          </h2>
+        </div>
+        <div class="contact-info">
+          <div class="contact-email">
+            <b>Vaccination : </b> {{patientDetails.vaccinationDetails.vaccinated ? 'Yes' :'No'}}
+          </div>
+          <div class="contact-phone">
+           <b>Next Vaccination: </b> {{patientDetails.vaccinationDetails.nextVaccination}}
+          </div>
+        </div>
+      </div>
+      <div class="profesion-detail-col">
+        <div class="detail-col">
+          <h2 class="heading custom-heading">Medicine</h2>
+          <div class="summary-content">
+            <div class="profile-content">
+            </div>
+          </div>
+        </div>
+        <div class="detail-col">
+          <h2 class="heading custom-heading">prescription</h2>
+          <table>
+            <tr>
+              <th>Medicine Name</th>
+              <th>Dosage</th>
+              <th colspan="4">Duration</th>
+              </tr>
+              <tr>
+                  <th></th>
+                  <th></th>
+                  <th>Morning</th>
+                  <th>Afternoon</th>
+                  <th>Evening</th>
+                  <th>Night</th>
+              </tr>
+            <tbody *ngIf="patientDetails.medicalRecords && patientDetails.medicalRecords.medicine.length>0">
+              <tr *ngFor="let pet of patientDetails.medicalRecords.medicine; index as i">
+                  <td class="small-width">{{pet.medicine}}</td>
+                  <td>{{pet.dosage}}</td>
+                  <td>{{pet.duration.morning}}</td>
+                  <td>{{pet.duration.afternoon}}</td>
+                  <td>{{pet.duration.evening}}</td>
+                  <td>{{pet.duration.night}}</td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
+        
+        <div class="detail-col" >
+          <h2 class="heading custom-heading">Remarks</h2>
+          <div class="summary-content">
+            <div class="profile-content">{{patientDetails.medicalRecords.remarks}}</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>

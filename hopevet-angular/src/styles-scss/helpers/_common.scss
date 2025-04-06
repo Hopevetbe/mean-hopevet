@@ -1,0 +1,15 @@
+.default-list-inline {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  li {
+    display: inline-block;
+  }
+}
+.valign-top {
+  vertical-align: top;
+}
+.valign-middle {
+  vertical-align: middle;
+}
+

@@ -1,0 +1,678 @@
+<ng-container *ngIf="!showPurchaseBill">
+<div class="purchase-bill-layout">
+    <div class="title" style="display:flex;justify-content: space-between;">
+        <h2>Purchase Bill Information</h2>
+        <div>
+            <a (click)="savePurchaseBill()" style="color:green">Save Purchase</a>
+            <a (click)="refreshComponent()" style="color:red;margin-left:10px">Create new purchase</a>
+        </div>
+
+    </div>
+
+
+
+    <form [formGroup]="purchaseInvoiceForm" *ngIf="purchaseInvoiceForm">
+
+        <input value="" formControlName="id" hidden>
+        <div class="purchase-bill-information">
+
+
+            <div class="input-groups" [formGroup]="purchaseBillInformationGroup">
+
+                <div class="input-fields">
+                    <label>Bill Date</label>
+                    <input type="date" formControlName="billDate">
+                </div>
+                <div class="input-fields">
+                    <label>Supplier Name <span class="text-danger fs12">*</span></label>
+
+
+                    <select formControlName="supplier">
+                        <option *ngFor="let supplier of supplierList" [value]="supplier._id">{{supplier.companyName}}
+                        </option>
+                    </select>
+                    <div *ngIf="!purchaseBillInformationGroup.controls.supplier.valid && purchaseBillInformationGroup.controls.supplier.touched"
+                        class="text-danger fs12">
+                        <small *ngIf="purchaseBillInformationGroup.controls.supplier.errors?.required"
+                            class="text-danger">Please
+                            select supplier name </small>
+                        <small *ngIf="purchaseBillInformationGroup.controls.supplier.errors?.pattern"
+                            class="text-danger">Please
+                            select supplier name </small>
+                    </div>
+
+                </div>
+                <div class="add-supplier" (click)="showSupplier()">
+
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </div>
+
+                <!-- <div class="input-fields">
+                <label>Supplier Name</label>
+                
+                <app-search [ownerList]="filteredSupplierOption" ngDefaultControl
+                            formControlName="supplierName" (newItemEvent)="changeSelectedSupplier($event)"></app-search>
+                <input type="text" formControlName="supplierName">
+            </div> -->
+                <div class="input-fields">
+                    <label>Payment Terms</label>
+                    <input type="text" formControlName="paymentTerms">
+                </div>
+                <div class="input-fields">
+                    <label>Due Date</label>
+                    <input type="date" formControlName="dueDate">
+                </div>
+                <div class="input-fields">
+                    <label>Place of supply</label>
+                    <input type="text" formControlName="placeOfSupply">
+
+                </div>
+                <!-- <div class="input-fields" >
+                <label>Purchase Type</label>
+                <select formControlName="purchaseType">
+                    <option value="">--Select--</option>
+                    <option value="PET_CLINIC">GST-PC</option>
+                    <option value="MEDI_STORE">GST-MS</option>
+                </select>
+            </div> -->
+
+                <div class="input-fields">
+                    <label>Purchase Document Number</label>
+                    <input type="text" formControlName="purchaseOrderNumber" readonly>
+                </div>
+
+
+                <div class="input-fields">
+                    <label>Purchase Date</label>
+                    <input type="date" formControlName="purchaseOrderDate">
+                </div>
+                <div class="input-fields">
+                    <label>Bill Number <span class="text-danger fs12">*</span></label>
+                    <input type="text" formControlName="eWayBillNumber">
+                    <div *ngIf="!purchaseBillInformationGroup.controls.eWayBillNumber.valid && purchaseBillInformationGroup.controls.eWayBillNumber.touched"
+                        class="text-danger fs12">
+                        <small *ngIf="purchaseBillInformationGroup.controls.eWayBillNumber.errors?.required"
+                            class="text-danger">Please
+                            enter bill number </small>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </form>
+    <h2>Particulars</h2>
+    <div class="purchase-bill-information">
+        <div class="add-items">
+            <div class="add-product">
+                <a (click)="showProduct()">Add New Product</a>
+            </div>
+            <div class="add-purchase">
+                <a (click)="addItem()">Add Item<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <ng-container *ngIf="itemAddedForm">
+            <ng-container [formGroup]="itemAddedForm">
+                <div class="input-groups particulars" (keydown.enter)="addItem()" (keyup.enter)="addItem()">
+                    <div class="text-with-icons">
+                        <label>Item Name<span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <!-- <input type="text" class="form-control item-name" formControlName="itemNumber"> -->
+                            <app-search [ownerList]="filteredProductOption" [searchTerm]="searchOwnerTerm"
+                                (searchTermEmitted)="changeOwnerSearch($event)" ngDefaultControl
+                                formControlName="itemNumber" (newlyAdded)="newlyAddedItemNumber($event)"
+                                (newItemEvent)="changeSelectedProduct($event)"></app-search>
+
+                        </div>
+                        <small *ngIf="newProduct" class="text-danger">Please Add product first</small>
+                    </div>
+                    <div class="text-with-icons">
+                        <label>Batch<span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <!-- <span class="input-group-text"><i class="fa fa-inr" aria-hidden="true"></i></span> -->
+                            <input type="text" class="form-control" formControlName="batch" [readonly]="newProduct">
+                        </div>
+                        <div *ngIf="!itemAddedForm.controls.batch.valid && itemAddedForm.controls.batch.touched"
+                            class="text-danger fs12">
+                            <small *ngIf="itemAddedForm.controls.batch.errors?.required" class="text-danger">Please
+                                enter batch name </small>
+                            <small *ngIf="itemAddedForm.controls.batch.errors?.pattern" class="text-danger">Please
+                                enter batch name </small>
+                        </div>
+                    </div>
+                    <div class="text-with-icons">
+                        <label>Expiry Date <span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <!-- <span class="input-group-text"><i class="fa fa-inr" aria-hidden="true"></i></span> -->
+                            <input type="date" class="form-control item-name" formControlName="expDate"
+                                [readonly]="newProduct">
+
+                        </div>
+                        <div *ngIf="!itemAddedForm.controls.expDate.valid && itemAddedForm.controls.expDate.touched"
+                            class="text-danger fs12">
+                            <small *ngIf="itemAddedForm.controls.expDate.errors?.required" class="text-danger">Please
+                                enter expDate </small>
+                            <small *ngIf="itemAddedForm.controls.expDate.errors?.pattern" class="text-danger">Please
+                                enter expDate </small>
+                        </div>
+                    </div>
+
+
+                    <div class="text-with-icons">
+                        <label>Quantity<span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control small" formControlName="billedQuantity"
+                                placeholder="Bill" [readonly]="newProduct">
+                            <input type="text" class="form-control small" formControlName="freeQuantity"
+                                placeholder="Free" [readonly]="newProduct">
+                        </div>
+                        <div *ngIf="!itemAddedForm.controls.billedQuantity.valid && itemAddedForm.controls.billedQuantity.touched"
+                            class="text-danger fs12">
+                            <small *ngIf="itemAddedForm.controls.billedQuantity.errors?.required"
+                                class="text-danger">Please
+                                enter Quantity </small>
+                            <small *ngIf="itemAddedForm.controls.billedQuantity.errors?.pattern"
+                                class="text-danger">Please
+                                enter Quantity </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-with-icons">
+                        <label>Hsn<span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" formControlName="hsn" [readonly]="newProduct">
+                        </div>
+                        <div *ngIf="!itemAddedForm.controls.hsn.valid && itemAddedForm.controls.hsn.touched"
+                            class="text-danger fs12">
+                            <small *ngIf="itemAddedForm.controls.hsn.errors?.required" class="text-danger">Please
+                                enter hsn </small>
+                            <small *ngIf="itemAddedForm.controls.hsn.errors?.pattern" class="text-danger">Please
+                                enter hsn </small>
+                        </div>
+                    </div>
+                    <div class="text-with-icons">
+                        <label>MRP<span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control small" formControlName="mrp" [readonly]="newProduct">
+                        </div>
+                    </div>
+
+                    <div class="text-with-icons">
+                        <label>Purchase Price<span class="text-danger fs12">*</span></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control small" formControlName="purchasePrice"
+                                [readonly]="newProduct">
+                        </div>
+                    </div>
+                    <div class="text-with-icons">
+                        <label>Discount</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control small" formControlName="discount"
+                                [readonly]="newProduct">
+                            <span class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    <div class="text-with-icons">
+                        <label>Sch %</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control small" formControlName="sch" [readonly]="newProduct">
+                            <span class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    <div class="text-with-icons">
+                        <label>GST %</label>
+                        <div class="input-group mb-3">
+                            <select class="form-control small" formControlName="gst">
+                                <option value="0">0</option>
+                                <option value="5">5</option>
+                                <option value="12">12</option>
+                                <option value="18">18</option>
+                                <option value="28">28</option>
+                            </select>
+                            <!-- <input type="text" class="form-control small" formControlName="gst" [readonly]="newProduct">
+        <span class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></span> -->
+                        </div>
+                    </div>
+
+                </div>
+            </ng-container>
+        </ng-container>
+
+    </div>
+    
+    <div class="tabular-wrapper">
+        <h3 class="main--title">Clinic Purchase List</h3>
+        <div class="table-container mt-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Mfg</th>
+                        <th>Hsn</th>
+                        <th>Item Name</th>
+                        <th>Batch</th>
+                        <th>Expiry</th>
+                        <th>Pack</th>
+                        <th>Mrp</th>
+                        <th>Free Quantity</th>
+                        <th>Billed Quantity</th>
+                        <th>Rate</th>
+                        <th>Discount</th>
+                        <th>Sch %</th>
+                        <th>Value</th>
+                        <th>Taxable Value</th>
+                        <th>GST(%)</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of medicinePurchaseList;let i=index">
+                        <td><i style="margin-right:5px;" class="fa-solid fa-pen-to-square"
+                                (click)="EditableMedicine[i] = true"></i><i class="fa-solid fa-floppy-disk"
+                                *ngIf="EditableMedicine[i] === true" (click)="EditableMedicine[i] = false"></i><i
+                                style="margin-left:5px;" class="fa-solid fa-trash-can"
+                                (click)="removeItem(i,'medicine')"></i></td>
+                        <td><input type="text" [value]="product.mktBy" (change)="onChange($event,i,'mktBy')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.hsn" (change)="onChange($event,i,'hsn')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.itemNumber" (change)="onChange($event,i,'itemNumber')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.batch" (change)="onChange($event,i,'batch')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.expDate" (change)="onChange($event,i,'expDate')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.pack" (change)="onChange($event,i,'pack')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.mrp" (change)="onChange($event,i,'mrp')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.freeQuantity"
+                                (change)="onChange($event,i,'freeQuantity')" [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.billedQuantity"
+                                (change)="onChange($event,i,'billedQuantity')" [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.purchasePrice"
+                                (change)="onChange($event,i,'purchasePrice')" [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.discount" (change)="onChange($event,i,'discount')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td><input type="text" [value]="product.sch" (change)="onChange($event,i,'sch')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td>{{getValue(product)| number:'1.2-2'}}</td>
+                        <td>{{getTaxableValue(product)| number:'1.2-2'}}</td>
+                        <td><input type="text" [value]="product.gst" (change)="onChange($event,i,'gst')"
+                                [disabled]="!EditableMedicine[i]"></td>
+                        <td>{{getTaxableValue(product)| number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="17">Total Amount : <i class="fa fa-inr"
+                                aria-hidden="true"></i>{{getMedicineTotal()| number:'1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="showButton">
+                        <td colspan="14"></td>
+                        <td (click)="saveMedicinePurchaseBill()"><i class="fa fa-cloud me-2" aria-hidden="true"></i>Save
+                        </td>
+                        <td (click)="printMedicinePurchaseBill()"><i class="fa fa-print me-2"
+                                aria-hidden="true"></i>Print</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="tabular-wrapper">
+        <h3 class="main--title">Pet Store Purchase List</h3>
+        <div class="table-container mt-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th class="lg-width">Mfg</th>
+                        <th>Hsn</th>
+                        <th class="lg-width">Item Name</th>
+                        <th>Batch</th>
+                        <th>Expiry</th>
+                        <th>Pack</th>
+                        <th>Mrp</th>
+                        <th>Free Quantity</th>
+                        <th>Billed Quantity</th>
+                        <th>Rate</th>
+                        <th>Discount</th>
+                        <th>Sch %</th>
+                        <th>Value</th>
+                        <th>Taxable Value</th>
+                        <th>GST(%)</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of petStorePurchaseList;let i=index">
+                        <td><i style="margin-right:5px;" class="fa-solid fa-pen-to-square"
+                                (click)="EditableFood[i] = true"></i><i class="fa-solid fa-floppy-disk"
+                                *ngIf="EditableFood[i] === true" (click)="EditableFood[i] = false"></i><i
+                                style="margin-left:5px;" class="fa-solid fa-trash-can"
+                                (click)="removeItem(i,'food')"></i></td>
+                        <td><input type="text" [value]="product.mktBy" (change)="onChangeFood($event,i,'mktBy')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.hsn" (change)="onChangeFood($event,i,'hsn')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.itemNumber"
+                                (change)="onChangeFood($event,i,'itemNumber')" [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.batch" (change)="onChangeFood($event,i,'batch')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.expDate" (change)="onChangeFood($event,i,'expDate')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.pack" (change)="onChangeFood($event,i,'pack')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.mrp" (change)="onChangeFood($event,i,'mrp')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.freeQuantity"
+                                (change)="onChangeFood($event,i,'freeQuantity')" [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.billedQuantity"
+                                (change)="onChangeFood($event,i,'billedQuantity')" [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.purchasePrice"
+                                (change)="onChangeFood($event,i,'purchasePrice')" [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.discount" (change)="onChangeFood($event,i,'discount')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td><input type="text" [value]="product.sch" (change)="onChangeFood($event,i,'sch')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td>{{getValue(product)| number:'1.2-2'}}</td>
+                        <td>{{getTaxableValue(product)| number:'1.2-2'}}</td>
+                        <td><input type="text" [value]="product.gst" (change)="onChangeFood($event,i,'gst')"
+                                [disabled]="!EditableFood[i]"></td>
+                        <td>{{getTaxableValue(product)| number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="17">Total Amount : <i class="fa fa-inr"
+                                aria-hidden="true"></i>{{getPetStoreTotal()| number:'1.2-2'}}</td>
+                    </tr>
+                    <tr *ngIf="showButton">
+                        <td colspan="14"></td>
+                        <td (click)="savePetStorePurchaseBill()"><i class="fa fa-cloud me-2" aria-hidden="true"></i>Save
+                        </td>
+                        <td (click)="printPetStorePurchaseBill()"><i class="fa fa-print me-2"
+                                aria-hidden="true"></i>Print</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="qrcode-test" *ngIf="qrcontainer && qrcontainer.length > 0">
+        <div>
+            <button (click)="downloadQrCode()">Download QR codes</button>
+        </div>
+        <div class="qrcode-container" #content>
+            <div class="qrcode-card" *ngFor="let item of qrcontainer;">
+                <qrcode [qrdata]="stringfyQrCode(item)" 
+                            [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                        <p style="text-align: center;">{{stringfyQrCodeName(item)}}</p>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+</ng-container>
+<app-popup *ngIf="showDialog" [showCloseIcon]="showCloseIcon" [showBorderRadius]="showBorderRadius" [size]="popupSize"
+    [grayBgEnabled]="grayBgEnabled" [(showComponent)]="showDialog" (popupClosed)="onPopupClose()">
+    <div class="purchase-bill-layout">
+        <div class="purchase-bill-information" *ngIf="productPopup">
+            <ng-template [ngTemplateOutlet]="addProductPopup"></ng-template>
+        </div>
+        <div class="purchase-bill-information" *ngIf="!productPopup">
+            <ng-template [ngTemplateOutlet]="addSupplierPopup"></ng-template>
+        </div>
+    </div>
+
+
+</app-popup>
+<ng-template #addProductPopup>
+    <ng-container *ngIf="productFormGroup">
+        <h2>Product Information</h2>
+        <div class="input-groups" [formGroup]="productFormGroup">
+
+            <div class="input-fields">
+                <label>Group</label>
+                <app-search [ownerList]="groups" [searchTerm]="searchGroupTerm"
+                                (searchTermEmitted)="changeGroupSearch($event)" ngDefaultControl
+                                formControlName="group"></app-search>
+                               
+
+                <!-- <input type="text" formControlName="group"> -->
+            </div>
+            <div class="input-fields">
+                <label>Brand</label>
+                <app-search [ownerList]="brands" [searchTerm]="searchBrandTerm"
+                                (searchTermEmitted)="changeBrandSearch($event)" ngDefaultControl
+                                formControlName="brand" ></app-search>
+                <!-- <input type="text" formControlName="brand"> -->
+            </div>
+
+            <div class="input-fields">
+                <label>Product Name</label>
+                <input type="text" formControlName="itemNumber" (change)="productNameChange()">
+            </div>
+            <div class="input-fields">
+                <label>Item Code</label>
+                <input type="text" formControlName="barcode" readonly>
+            </div>
+            <div class="input-fields">
+                <label>Pack</label>
+                <app-search [ownerList]="packs" [searchTerm]="searchPackTerm"
+                                (searchTermEmitted)="changePackSearch($event)" ngDefaultControl
+                                formControlName="pack" ></app-search>
+                <!-- <input type="text" formControlName="pack"> -->
+            </div>
+            <div class="input-fields">
+                <label>Purchase Price</label>
+                <input type="text" formControlName="purchasePrice">
+
+            </div>
+            <div class="input-fields">
+                <label>MRP</label>
+                <input type="text" formControlName="mrp">
+
+            </div>
+            <div class="input-fields">
+                <label>Rack No</label>
+                <input type="text" formControlName="rackNo">
+            </div>
+            <div class="input-fields">
+                <label>Clinic Type</label>
+                <select formControlName="clinicType">
+                    <option value="">---select----</option>
+                    <option value="PET_CLINIC">Medicine</option>
+                    <option value="MEDI_STORE">Food Products</option>
+                </select>
+
+            </div>
+            <div>
+                <button (click)="saveProduct()">Add Product</button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<ng-template #addSupplierPopup>
+    <ng-container *ngIf="supplierFormGroup">
+        <h2>Supplier Information</h2>
+        <div class="input-groups" [formGroup]="supplierFormGroup">
+            <div class="input-fields">
+                <label>Supplier Name <span class="text-danger fs12">*</span></label>
+                <input type="text" formControlName="companyName">
+                <div *ngIf="!supplierFormGroup.controls.companyName.valid && supplierFormGroup.controls.companyName?.touched"
+                    class="text-danger fs12">
+                    <small *ngIf="supplierFormGroup.controls.companyName.errors?.required" class="text-danger">Please
+                        enter supplier name </small>
+                    <small *ngIf="supplierFormGroup.controls.companyName.errors?.pattern" class="text-danger">Please
+                        enter valid supplier name </small>
+                </div>
+            </div>
+            <div class="input-fields">
+                <label>Address</label>
+                <input type="text" formControlName="address">
+            </div>
+            <div class="input-fields">
+                <label>City</label>
+                <input type="text" formControlName="city">
+            </div>
+            <div class="input-fields">
+                <label>State</label>
+                <input type="text" formControlName="state">
+            </div>
+            <div class="input-fields">
+                <label>Country</label>
+                <input type="text" formControlName="country">
+            </div>
+            <div class="input-fields">
+                <label>Pincode <span class="text-danger fs12">*</span></label>
+                <input type="text" formControlName="pincode">
+                <div *ngIf="!supplierFormGroup.controls.pincode.valid && supplierFormGroup.controls.pincode?.touched"
+                    class="text-danger fs12">
+                    <small *ngIf="supplierFormGroup.controls.pincode.errors?.required" class="text-danger">Please
+                        enter pincode </small>
+                    <small *ngIf="supplierFormGroup.controls.pincode.errors?.pattern" class="text-danger">Please
+                        enter valid pincode</small>
+                </div>
+            </div>
+            <div class="input-fields">
+                <label>Email</label>
+                <input type="text" formControlName="email">
+
+
+            </div>
+            <div class="input-fields">
+                <label>Mobile Number <span class="text-danger fs12">*</span></label>
+                <input type="text" formControlName="mobileNumber">
+                <div *ngIf="!supplierFormGroup.controls.mobileNumber.valid && supplierFormGroup.controls.mobileNumber.touched"
+                    class="text-danger fs12">
+                    <small *ngIf="supplierFormGroup.controls.mobileNumber.errors?.required" class="text-danger">Please
+                        enter mobile number </small>
+                    <small *ngIf="supplierFormGroup.controls.mobileNumber.errors?.pattern" class="text-danger">Please
+                        enter valid mobile number </small>
+                </div>
+
+            </div>
+            <div class="input-fields">
+                <label>GSTIN<span class="text-danger fs12">*</span></label>
+                <input type="text" formControlName="gstin">
+                <div *ngIf="!supplierFormGroup.controls.gstin.valid && supplierFormGroup.controls.gstin.touched"
+                    class="text-danger fs12">
+                    <small *ngIf="supplierFormGroup.controls.gstin.errors?.required" class="text-danger">Please
+                        enter GSTIN </small>
+                    <small *ngIf="supplierFormGroup.controls.gstin.errors?.pattern" class="text-danger">Please
+                        enter valid GSTIN </small>
+                </div>
+
+            </div>
+
+            <div>
+                <button [disabled]="supplierFormGroup.invalid" (click)="saveSupplier()">Add Supplier</button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<div class="purchase-bill-information" *ngIf="showPurchaseBill">
+    <div class="container">
+        <div #downloadableContent>
+            <app-invoice-generation [responseData]="purchaseBillResponse" [supplier]="supplier"
+                [clinic]="clinic"></app-invoice-generation>
+
+        </div>
+        <div class="d-flex justify-content-center" style="gap:5px">
+            <button class="nextBtn" (click)="downloadAsPDF()"> <span class="btnText">Download
+                    invoice</span></button>
+            <button class="go-back" (click)="showPurchaseBill=false;isFromPrint=false"> <span
+                    class="btnText">Go Back to Purchase</span></button>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="showResponse">
+    <div class="modal fade show" style="display:block!important;" *ngIf="success">
+        <div class="modal-dialog  modal-dialog-centered modal-md">
+            <div class="modal-content modal-confirm">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    
+                </div>
+                <div class="modal-body text-center">
+                    <h4 >Details saved</h4>
+                   
+                    <p class="text-success">Successfully </p>
+    
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade show" style="display:block!important;" *ngIf="errorAlert">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-reject ">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Sorry</h4>
+                    <p class="text-danger">Something went wrong. Try again</p>
+                    <p></p>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

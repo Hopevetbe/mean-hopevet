@@ -1,0 +1,243 @@
+<div class="tabular-wrapper">
+    <h3 class="main--title">Reports</h3>
+    
+   
+    
+    <div class="table-container mt-4">
+        <table>
+            <thead>
+                <tr>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="reportGroup">
+                <tr [formGroup]="reportGroup">
+                    <td><input type="date" class="form-control" formControlName="startDate"></td>
+                    <td><input type="date" class="form-control" formControlName="endDate"></td>
+                    <td><select formControlName="reportType">
+                        <option value="Medicine_Purchase_Report">Medicine Purchase Report</option>
+                        <option value="Petstore_Purchase_Report">Petstore Purchase Report</option>
+                        <option value="Medicine_Sales_Report">Medicine Sales Report</option>
+                        <option value="Petstore_Sales_Report">Petstore Sales Report</option>
+                        <option value="Stock_Report">Stock Report</option>
+                        <!-- <option value="Purchase_Return">Purchase Return</option> -->
+                        <option value="Customer_Report">Customer Report</option>
+                        <option value="Vaccination_Report">Vaccination Report</option>
+                        <!-- <option value="Promotional_Report">Promotional Report</option> -->
+                    </select></td>
+                    
+                    <td><button (click)="getReport()">Show Preview</button></td>
+                </tr>
+                
+               
+            </tbody>
+           
+        </table>
+    </div>
+</div>
+<div class="tabular-wrapper" *ngIf="showTable">
+    <div class="table-container mt-4">
+        <div class="m-2" style="float: right;">
+        <button (click)="exportexcel()">Export to Excel</button>
+        </div>
+       
+        <table id="excel-table">
+            <ng-container *ngIf="reportType === 'Medicine_Purchase_Report' || reportType === 'Petstore_Purchase_Report' ">
+                <thead>
+                    <tr>
+                    <th>Purchase Order Number</th>
+                    <th>Supplier</th>
+                    <th>Purchase Order Date</th>
+                    <th>Total Bill Amount</th>
+                    <th colspan="3">GST 0%</th>
+                    <th colspan="3">GST 5%</th>
+                    <th colspan="3">GST 12%</th>
+                    <th colspan="3">GST 18%</th>
+                    <th colspan="3">GST 28%</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    <th>IGST</th>
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    <th>IGST</th>
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    <th>IGST</th>
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    <th>IGST</th>
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    <th>IGST</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let purchase of reportData;let i=index;">
+                    <td>{{purchase.purchaseBillInfo.purchaseOrderNumber}}</td>
+                    <td>{{purchase.purchaseBillInfo.supplier.companyName}}</td>
+                    <td>{{purchase.purchaseBillInfo.purchaseOrderDate}}</td>
+                    <td>{{purchase.totalBillAmount}}</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>{{gst[i].fiveGst.toFixed(2)}}</td>
+
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>{{gst[i].tweleGst.toFixed(2)}}</td>
+
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>{{gst[i].eighteenGst.toFixed(2)}}</td>
+
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>{{gst[i].twentyEightGst.toFixed(2)}}</td>
+                  </tr>
+                  </tbody>
+            </ng-container>
+            <ng-container *ngIf="reportType === 'Medicine_Sales_Report' || reportType === 'Petstore_Sales_Report'">
+                <thead>
+                    <tr>
+                    <th>Invoice Number</th>
+                    <th>Client Name</th>
+                    <th>Client Mobile Number</th>
+                    <th>Invoice Date</th>
+                    <th>Taxable Amount</th>
+                    <th>Total GST</th>
+                    <th>Total Bill Amount</th>
+                    <th colspan="2">GST 0%</th>
+                    <th colspan="2">GST 5%</th>
+                    <th colspan="2">GST 12%</th>
+                    <th colspan="2">GST 18%</th>
+                    <th colspan="2">GST 28%</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    
+                    <th>SGST</th>
+                    <th>CGST</th>
+                   
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    
+                    <th>SGST</th>
+                    <th>CGST</th>
+                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let sale of reportData;let i =index">
+                    <td>{{sale.invoiceInfo.invoiceNumber}}</td>
+                    <td>{{sale.clientInfo?.clientName ?? ''}}</td>
+                    <td>{{sale.clientInfo?.mobileNumber ?? ''}}</td>
+                    <td>{{sale.invoiceInfo.invoiceDate}}</td>
+                    <td>{{sale.subtotal}}</td>
+                    <td>{{sale.totalGst}}</td>
+                    <td>{{sale.grandTotal}}</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    
+                    <td>{{gstSale[i].fiveGst.toFixed(2)}}</td>
+                    <td>{{gstSale[i].fiveGst.toFixed(2)}}</td>
+                   
+                    <td>{{gstSale[i].tweleGst.toFixed(2)}}</td>
+                    <td>{{gstSale[i].tweleGst.toFixed(2)}}</td>
+                    
+                    <td>{{gstSale[i].eighteenGst.toFixed(2)}}</td>
+                    <td>{{gstSale[i].eighteenGst.toFixed(2)}}</td>
+                    
+                    <td>{{gstSale[i].twentyEightGst.toFixed(2)}}</td>
+                    <td>{{gstSale[i].twentyEightGst.toFixed(2)}}</td>
+
+                  </tr>
+                  </tbody>
+            </ng-container>
+            <ng-container *ngIf="reportType === 'Customer_Report' || reportType === 'Vaccination_Report'">
+                <thead>
+                    <tr>
+                    <th>Prescription Number</th>
+                    <th>Pet Category</th>
+                    <th>Pet Name</th>
+                    <th>Pet Age</th>
+                    <th>Pet Weight</th>
+                    <th>Visited Date</th>
+                    <th>Vaccinated</th>
+                    <th>Next Vaccination</th>
+                    <th>Pet Owner Name</th>
+                    <th>Mobile Number</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let customer of reportData">
+                    <td>{{customer.prescriptionNumber}}</td>
+                    <td>{{customer.selectedPet.category}}</td>
+                    <td>{{customer.selectedPet.petName}}</td>
+                    <td>{{customer.selectedPet.petAge}}</td>
+                    <td>{{customer.selectedPet.petWeight}}</td>
+                    <td>{{customer.visitedDate}}</td>
+                    <td>{{customer.vaccinationDetails.vaccinated ? 'Yes': 'No'}}</td>
+                    <td>{{customer.vaccinationDetails.nextVaccination}}</td>
+                    <td>{{customer.petOwnerDetails.ownerName}}</td>
+                    <td>{{customer.petOwnerDetails.phoneNumber}}</td>
+                  </tr>
+                  </tbody>
+            </ng-container>
+            <ng-container *ngIf="reportType === 'Stock_Report'">
+                <thead>
+                    <tr>
+                    <th>HSN</th>
+                    <th>Batch</th>
+                    <th>Item Name</th>
+                    <th>MktBy</th>
+                    <th>ExpDate</th>
+                    <th>Pack</th>
+                    <th>MRP</th>
+                    <th>Available Quantity</th>
+                    <th>GST</th>
+                    <th>SCH</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let stock of reportData">
+                    <td>{{stock.hsn}}</td>
+                    <td>{{stock.batch}}</td>
+                    <td>{{stock.itemName}}</td>
+                    <td>{{stock.mktBy}}</td>
+                    <td>{{stock.expDate}}</td>
+                    <td>{{stock.pack}}</td>
+                    <td>{{stock.mrp}}</td>
+                    <td>{{stock.availableQuantity}}</td>
+                    <td>{{stock.gst}}</td>
+                    <td>{{stock.sch}}</td>
+                  </tr>
+                  </tbody>
+            </ng-container>
+           
+        </table>
+     
+      </div>
+</div>

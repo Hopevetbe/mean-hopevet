@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Poppins:ital,wght@1,300&display=swap');
+
+
+*{
+    margin:0;
+    padding: 0;
+    border:none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+.dashboard-layout{
+    display: flex;
+}
+.side-bar{
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 110px;
+    height: 100vh;
+    padding: 0 1.7rem;
+    color: #fff;
+    overflow: hidden;
+    transition: all 0.5s linear;
+    background: linear-gradient(45deg,#328f8a,#08ac4b);
+    &:hover{
+        width: 240px;
+        transition: 0.5s;
+    }
+}
+
+.logo{
+    height: 80px;
+    padding: 16px;
+}
+.menu{
+    height: 88%;
+    position: relative;
+    list-style: none;
+    padding: 0;
+}
+.menu li{
+    padding:1rem;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: all 0.5s ease-in-out;
+}
+.menu li:hover, 
+ .active
+{
+    background: #e0e0e058;
+}
+.menu a{
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.menu a span{
+    overflow: hidden;
+}
+.menu a i{
+    font-size: 1.2rem;
+}
+.logout{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/** Main Content*/
+.main-content{
+    position: relative;
+    background:#ebe9e9;
+    width: 100%;
+    padding: 1rem;
+    min-width:600px;
+    overflow:auto;
+}
+.header-wrapper img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.header-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+.header-title{
+    color: #4CAF50;
+}
+.user-info{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.search-bar{
+    background: rgb(237, 237, 237);
+    border-radius: 15px;
+    color:#4CAF50;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+
+    input {
+        background: transparent;
+        padding: 10px;
+    }
+    i{
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.5s ease-out;
+        &:hover{
+            transform: scale(1.2);
+        }
+    }
+
+}
+.card--container{
+    background:#fff;
+    padding: 2rem;
+    border-radius: 10px;
+    .card--wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        .payment--card{
+            background: rgb(229, 223, 223);
+            border-radius: 10px;
+            padding: 1.2rem;
+            width: 290px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.5s ease-in-out;
+            &:hover{
+                transform: translateY(-5px);
+            }
+            .card-header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                .amount{
+                    display: flex;
+                    flex-direction: column;
+                    .title{
+                        font-size: 12px;
+                        font-weight: 200;
+                    }
+                    .amount-value{
+                        font-size: 24px;
+                        font-family: "Courier New", monospace;
+                        font-weight: 600;
+                    }
+                }
+                .icon{
+                    color: #fff;
+                    padding: 1rem;
+                    height: 60px;
+                    width: 60px;
+                    text-align: center;
+                    border-radius: 50%;
+                    font-size: 1.5rem;
+                    background: red;
+                }
+            }
+            .card-detail{
+                font-size: 18px;
+                color: #777777;
+                font-family: "Courier New", monospace;
+            }
+        }
+    }
+    .main--title{
+        color:#4CAF50;
+        padding-bottom: 10px;
+        font-size: 25px;
+    }
+}
+ /***Color cards**/
+ .light-red{
+    background: rgb(251, 233, 233) !important;
+ }
+ .light-pink{
+    background: rgb(251, 233, 245) !important;
+ }
+ .light-purple{
+    background: rgb(254, 226, 254) !important;
+ }
+ .light-green{
+    background: rgb(235, 254, 235) !important;
+ }
+ .light-blue{
+    background: rgb(236, 236, 254) !important;
+ }
+ .light-sky-blue{
+    background: rgb(236, 253, 254) !important;
+ }
+ .dark-red{
+    background: red !important;
+ }
+ .dark-pink{
+    background: rgb(230, 0, 255) !important;
+ }
+ .dark-purple{
+    background: purple !important;
+ }
+ .dark-blue{
+    background: blue !important;
+ }
+ .dark-sky-blue{
+    background: rgb(0, 200, 255) !important;
+ }
+ .dark-green{
+    background: green !important;
+ }
+
+
+ /**   Tabular css***/
+ .tabular-wrapper{
+    background:#fff;
+    margin-top: 1rem;
+    padding: 2rem;
+    border-radius: 10px;
+    .main--title{
+        color:#4CAF50;
+        padding-bottom: 10px;
+        font-size: 25px;
+    }
+    .table-container{
+        width: 100%;
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            thead{
+                background: linear-gradient(45deg,#328f8a,#08ac4b);
+                color: #fff;
+                th{
+                    padding: 15px;
+                    text-align: left;
+                }
+            }
+            tbody{
+                background: #f2f2f2;
+                tr:nth-child(even){
+                    background: #fff;
+                }
+                td{
+                    padding: 15px;
+                    font-size: 14px;
+                    color:#333;
+                     word-wrap:break-word;
+                    &:nth-child(1),&:nth-child(2){
+                        width:150px;
+                    }
+                    input{
+                        width: 160px;
+                    }
+                }
+            }
+            tfoot{
+                background: linear-gradient(45deg,#328f8a,#08ac4b);
+                font-weight: bold;
+                color:#fff;
+                td{
+                    padding: 15px;
+                }
+            }
+        }
+        button{
+            color:#fff;
+            background: linear-gradient(45deg,#328f8a,#08ac4b);
+            cursor: pointer;
+            border: 1px solid #4CAF50;
+            padding:10px;
+            border-radius: 20px;
+            &:hover{
+                background: #fff;
+                color:#4CAF50;
+                border:1px solid #4CAF50;
+            }
+        }
+    }
+ }
+ .loader-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(153, 147, 147, 0.5);
+ }
+ .loader {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #4CAF50;
+    
+    width: 70px;
+    height: 70px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .modal-confirm .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-header h4 {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+
+.modal-confirm .modal-header {
+    background: #47c9a2;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: 0px;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+ 
+.modal-confirm .icon-box {
+    color: #fff;
+    width: 95px;
+    height: 95px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 5px solid #fff;
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.modal-confirm .icon-box i {
+    font-size: 64px;
+    margin: -4px 0 0 -4px;
+}
+
+
+
+
+
+.modal-warning .modal-header {
+    background: #da7110;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: 0px;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+
+.modal-warning .icon-box {
+    color: #fff;
+    width: 95px;
+    height: 95px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 5px solid #fff;
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.modal-warning .icon-box i {
+    font-size: 64px;
+    margin: -4px 0 0 -4px;
+}
+
+
+
+.modal-header .close {
+    margin: -1rem -1rem -1rem auto;
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    z-index: 99;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    padding: 0;
+}
+
+.modal-reject .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.modal-reject .icon-box {
+    color: #fff;
+    width: 95px;
+    height: 95px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 5px solid #fff;
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.modal-reject .icon-box i {
+    font-size: 62px;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    left: -3px;
+    top: -6px;
+}
+
+.modal-reject .modal-header {
+    background: #e85e6c;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: 0px;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+
+.modal-body p {
+    font-size: 14px;
+}
+
+.modal-body h4 {
+    font-size: 22px;
+    margin: 20px auto;
+    text-transform: uppercase;
+}
+
+.modal-information .modal-header {
+    background: #ffffff;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: 0px;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+
+.modal-information .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.modal-information .icon-box {
+    color: #007bff;
+    width: 95px;
+    height: 95px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    /* border: 5px solid #007bff; */
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.modal-information .icon-box i {
+    font-size: 62px;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    left: -3px;
+    top: -6px;
+}

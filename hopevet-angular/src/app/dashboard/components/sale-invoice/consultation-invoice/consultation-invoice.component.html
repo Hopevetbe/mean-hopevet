@@ -1,0 +1,53 @@
+
+        <div id="invoice">
+            <header>
+                <h1>Consultation</h1>
+            </header>
+    
+            <div class="hospital-details">
+                <p><strong>Hospital Name:</strong> {{clinic.legalName}}</p>
+                <p><strong>Address:</strong>{{clinic.address}}</p>
+                <p><strong>Contact:</strong> {{clinic.mobileNumber}}</p>
+            </div>
+    
+            <div class="invoice-details">
+                <p><strong>Invoice Number:</strong> {{responseData.invoiceInfo.invoiceNumber}}</p>
+                <p><strong>Date:</strong>{{responseData.invoiceInfo.invoiceDate}}</p>
+                <p><strong>Customer:</strong> {{client.clientName}}</p>
+            </div>
+    
+            <table>
+                <thead>
+                <tr>
+                    <th>Sno</th>
+                    <th>Treatment Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+                    
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Consultation</td>
+                    <td>{{responseData.consultationDetails.quantity}}</td>
+                    <td>₹ {{responseData.consultationDetails.price}}</td>
+                    <td>₹ {{responseData.consultationDetails.totalPrice}}</td>
+                    </tr>
+                    
+                </tbody>
+                <tfoot>
+                    
+                    <tr>
+                        <td colspan="4"><strong>Total</strong></td>
+                        <td><strong>₹ {{responseData.consultationDetails.totalPrice}}</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+    
+            <div class="footer">
+                <p>Thank you for choosing our medical services!</p>
+            </div>
+        </div>
+    

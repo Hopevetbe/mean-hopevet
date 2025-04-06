@@ -1,0 +1,232 @@
+.pet-card{
+    .pet-name-card{
+        padding:20px;
+        margin:10px;
+        border:1px solid #000;
+        border-radius: 10px;
+        label{
+            color:#0061ff;
+            font-size:16px;
+            font-weight:700;
+        }
+        .category-age{
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color:#000;
+            font-weight: 500;
+        }
+    }
+}
+.two-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.selected-pet-details {
+    border: 1px solid #000;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    .inner-pet-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        span {
+            font-size: 15px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+        .vaccination-date{
+            h2{
+                font-size: 15px;
+            }
+        }
+
+    }
+}
+.fields{
+    textarea{
+        border: 1px solid #000;
+        padding:10px;
+    }
+}
+.small-width{
+    width:150px;
+    word-wrap: break-word;
+}
+// .switch {
+//     position: relative;
+//     left: 60%;
+//     width: 130px;
+//     height: 40px;
+//     text-align: center;
+//     margin: -30px 0 0 -75px;
+//     background: #00bc9c;
+//     transition: all 0.2s ease;
+//     border-radius: 25px;
+//   }
+//   .switch span {
+//     position: absolute;
+//     width: 20px;
+//     height: 4px;
+//     top: 50%;
+//     left: 50%;
+//     margin: -2px 0px 0px -4px;
+//     background: #fff;
+//     display: block;
+//     transform: rotate(-45deg);
+//     transition: all 0.2s ease;
+//   }
+//   .switch span:after {
+//     content: "";
+//     display: block;
+//     position: absolute;
+//     width: 4px;
+//     height: 12px;
+//     margin-top: -8px;
+//     background: #fff;
+//     transition: all 0.2s ease;
+//   }
+//   .toggle-radio input[type=radio] {
+//     display: none;
+//   }
+//   .switch label {
+//     cursor: pointer;
+//     color: rgba(0,0,0,0.2);
+//     width: 60px;
+//     line-height: 50px;
+//     transition: all 0.2s ease;
+//   }
+//   label[for=yes] {
+//     position: absolute;
+//     left: 0px;
+//     height: 20px;
+//   }
+//   label[for=no] {
+//     position: absolute;
+//     right: 0px;
+//   }
+//   #no:checked ~ .switch {
+//     background: #eb4f37;
+//   }
+//   #no:checked ~ .switch span {
+//     background: #fff;
+//     margin-left: -8px;
+//   }
+//   #no:checked ~ .switch span:after {
+//     background: #fff;
+//     height: 20px;
+//     margin-top: -8px;
+//     margin-left: 8px;
+//   }
+//   #yes:checked ~ .switch label[for=yes] {
+//     color: #fff;
+//   }
+//   #no:checked ~ .switch label[for=no] {
+//     color: #fff;
+//   }
+  .close{
+    text-align: right;
+    position: relative;
+    top: 23px;
+    right: 30px;
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width:100%;
+    border:none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 25px 0;
+    background: linear-gradient(45deg,#328f8a,#08ac4b);
+    transition: all 0.3s linear;
+    cursor: pointer;
+    &:hover {
+        background: linear-gradient(45deg,#06efe4,#13f471);
+    }
+}
+.go-back{
+  color: #fff;
+  background: linear-gradient(45deg,#32508f,#084cac);
+  &:hover {
+      background: #fff;
+      color: #362aa4;
+      border: 1px solid #362aa4;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

@@ -1,0 +1,14 @@
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 10px;
+    img{
+        width:64px;
+        height:64px;
+    }
+    .file-upload{
+        margin-top:30px;
+    }
+}

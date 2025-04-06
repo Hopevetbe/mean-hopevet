@@ -1,0 +1,324 @@
+<div class="purchase-bill-layout"  *ngIf="!showSaleBill">
+    <div class="title" style="display:flex;justify-content: space-between;">
+        <h2>Invoice Information</h2>
+        <div>
+            <a (click)="saveSalesBill()" style="color:green">Save Sales</a>
+            <a (click)="refreshComponent()" style="color:red;margin-left:10px">Create new sale</a>
+        </div>
+    </div>
+
+    <div class="purchase-bill-information">
+       <ng-container *ngIf="invoiceInfoForm">
+        <div class="input-groups" [formGroup]="invoiceInfoForm">
+            
+            
+            
+            <div class="input-fields">
+                <label>Contact Number</label>
+                <!-- <app-search [ownerList]="filteredOwnerOption" [searchTerm]="searchOwnerTerm" (searchTermEmitted)="changeOwnerSearch($event)" ngDefaultControl
+                            formControlName="mobileNumber" (newItemEvent)="changeEvent($event)"></app-search> -->
+                  <input type="text" formControlName="mobileNumber"> 
+            </div>
+            <div></div>
+            <div class="input-fields">
+                <label>Client Name</label>
+                <input type="text" formControlName="clientName">
+            </div>
+            <div class="input-fields">
+                <label>Address</label>
+                <input type="text" formControlName="address">
+            </div>
+            <div class="input-fields">
+                <label>Client GSTIN</label>
+                <input type="text" formControlName="clientGSTIN">
+            </div>
+            <div class="input-fields">
+                <label>Invoice Date</label>
+                <input type="date" formControlName="invoiceDate">
+            </div>
+            <div class="input-fields">
+                <label>Place of Supply</label>
+                <input type="text" formControlName="placeOfSupply" >
+            </div>
+            <div class="input-fields">
+                <label>Payment Mode</label>
+                <input type="text" formControlName="paymentMode">
+            </div>
+            <div class="input-fields">
+                <label>Sold By</label>
+                <input type="text" formControlName="soldBy">
+            </div>
+            
+        </div>
+        </ng-container>
+        
+           
+        
+    </div>
+    <div class="tabular-wrapper">
+        <h3 class="main--title">Consultation</h3>
+    <div class="table-container mt-4">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sno</th>
+                    <th>Treatment Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="consultationForm">
+                <tr [formGroup]="consultationForm">
+                    <td>1</td>
+                    <td>Consultation</td>
+                    <td><input type="number" formControlName="quantity" (change)="updateTotalConsulatation()"></td>
+                    <td><input type="number" formControlName="price" (change)="updateTotalConsulatation()"></td>
+                    <td><input type="number" formControlName="totalPrice" readonly></td>
+                </tr>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">Total Amount : {{getTotalConsultationAmount()}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td (click)="saveConsultation()"><i class="fa fa-cloud me-2" aria-hidden="true"></i>Save</td>
+                    <td (click)="printConsultation()"><i class="fa fa-print me-2" aria-hidden="true"></i>Print</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    </div>
+    <h2>Items Added for sale</h2>
+    <div class="purchase-bill-information" *ngIf="itemAddedForm" >
+        <div class="add-items">
+            <div class="add-purchase" (click)="addProductToTable()">
+                <a>Add Item<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+            </div>
+        </div>
+       
+        <div class="input-groups particulars" [formGroup]="itemAddedForm">
+            <div class="text-with-icons">
+                <label>Barcode</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fa fa-barcode" aria-hidden="true"></i></span>
+                    <input #barcode type="text" class="form-control" (change)="changessss($event)" (blur)="blurValue()" formControlName="barcode" (focus)="focus($event)">
+                </div>
+            </div>
+            <div class="text-with-icons">
+                <label>Item Name</label>
+                <div class="input-group mb-3">
+                    <app-search [ownerList]="filteredProductOption" [searchTerm]="searchTerm" ngDefaultControl
+                            formControlName="itemName"
+                             (searchTermEmitted)="changeSearch($event)" (newItemEvent)="changeProductEvent($event)"></app-search>
+                             
+                    <!-- <input type="text" class="form-control item-name" formControlName="itemName"> -->
+                </div>
+                <small *ngIf="availableQuantity !==0" style="color:green">Available Quantity:{{availableQuantity}}</small>
+            </div>
+            <div class="text-with-icons">
+                <label>Quantity</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control small" formControlName="quantity">
+                </div>
+            </div>
+            <div class="text-with-icons">
+                <label>MRP</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control small" formControlName="mrp">
+                </div>
+            </div>
+            <div class="text-with-icons">
+                <label>Discount</label>
+                <div class="input-group mb-3">
+                    
+                    <input type="text" class="form-control small" formControlName="discount">
+                    <span class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div class="text-with-icons">
+                <label>GST</label>
+                <div class="input-group mb-3">
+                    
+                    <input type="text" class="form-control small" formControlName="gst">
+                    <span class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="tabular-wrapper">
+        <h3 class="main--title">Clinic Sale Details</h3>
+    <div class="table-container mt-4">
+        <table>
+            <thead>
+                <tr>
+                    <th>ACTIONS</th>
+                    <th>PRODUCT NAME</th>
+                    <th>HSN</th>                    
+                    <th>BATCH</th>
+                    <th>EXP</th>
+                    <th>QUANTITY</th>
+                    <th>MRP</th>
+                    <th>DISCOUNT</th>
+                    <th>GST</th>
+                    <th>AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of medicineSaleArray;let i=index">
+                    <td><i style="margin-right:5px;" class="fa-solid fa-pen-to-square"  (click)="EditableMedicine[i] = true"></i><i class="fa-solid fa-floppy-disk" *ngIf="EditableMedicine[i] === true" (click)="EditableMedicine[i] = false"></i><i style="margin-left:5px;" class="fa-solid fa-trash-can" (click)="removeItem(i,'medicine')"></i></td>
+                    <td>{{product.productInfo.itemName}}</td>
+                    <td>{{product.productInfo.hsn}}</td>
+                    <td>{{product.productInfo.batch}}</td>
+                    <td>{{product.productInfo.expDate}}</td>
+                    <td><input type="text" [value]="product.purchaseQuantity" (change)="onChange($event,i,'purchaseQuantity')" [disabled]="!EditableMedicine[i]"></td>
+                    <td>{{product.productInfo.mrp}}</td>
+                    <td><input type="text" [value]="product.discount" (change)="onChange($event,i,'discount')" [disabled]="!EditableMedicine[i]"></td>
+                    <td>{{product.productInfo.gst}}</td>
+                    <td>{{product.discountedPrice| number : '1.2-2'}}</td>
+                </tr>
+                
+               
+             
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">TOTAL: {{getMedicineSubtotal()| number : '1.2-2'}} </td>
+                </tr>
+                <!-- <tr>
+                    <td colspan="9">GST: </td>
+                </tr>
+                <tr>
+                    <td colspan="9">GRAND TOTAL: </td>
+                </tr> -->
+                <tr>
+                    <td colspan="6"></td>
+                    <td (click)="saveMedicineBill()"><i class="fa fa-cloud me-2" aria-hidden="true"></i>Save</td>
+                    <td (click)="printMedicineBill()"><i class="fa fa-print me-2" aria-hidden="true"></i>Print</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    </div>
+    <div class="tabular-wrapper" *ngIf="petStoreSaleArray">
+        <h3 class="main--title">Pet Store Sale Details</h3>
+        <div class="table-container mt-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ACTIONS</th>
+                        <th>PRODUCT NAME</th>
+                        <th>HSN</th>                    
+                        <th>BATCH</th>
+                        <th>EXP</th>
+                        <th>QUANTITY</th>
+                        <th>MRP</th>
+                        <th>DISCOUNT</th>
+                        <th>GST</th>
+                        <th>AMOUNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of petStoreSaleArray;let i=index">
+                        <td><i style="margin-right:5px;" class="fa-solid fa-pen-to-square"  (click)="EditableFood[i] = true"></i><i class="fa-solid fa-floppy-disk" *ngIf="EditableFood[i] === true" (click)="EditableFood[i] = false"></i><i style="margin-left:5px;" class="fa-solid fa-trash-can" (click)="removeItem(i,'food')"></i></td>
+                        <td>{{product.productInfo.itemName}}</td>
+                        <td>{{product.productInfo.hsn}}</td>
+                        <td>{{product.productInfo.batch}}</td>
+                        <td>{{product.productInfo.expDate}}</td>
+                        <td><input type="text" [value]="product.purchaseQuantity" (change)="onChangeFood($event,i,'purchaseQuantity')" [disabled]="!EditableFood[i]">{{product.purchaseQuantity}}</td>
+                        <td>{{product.productInfo.mrp}}</td>
+                        <td><input type="text" [value]="product.discount" (change)="onChangeFood($event,i,'discount')" [disabled]="!EditableFood[i]">{{product.discount}}</td>
+                        <td>{{product.productInfo.gst}}</td>
+                        <td>{{product.discountedPrice | number : '1.2-2'}}</td>
+                    </tr>
+                    
+                   
+                 
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="10"> TOTAL: {{getPetSubtotal() | number : '1.2-2'}} </td>
+                    </tr>
+                    <!-- <tr>
+                        <td colspan="9">GST: {{petStoreGrandTotal*petStoreTotalGst/100}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9">GRAND TOTAL: {{ petStoreGrandTotal}}</td>
+                    </tr> -->
+                    <tr>
+                        <td colspan="6"></td>
+                        <td (click)="savePetStoreDetails()"><i class="fa fa-cloud me-2" aria-hidden="true"></i>Save</td>
+                        <td (click)="printPetStoreDetails()"><i class="fa fa-print me-2" aria-hidden="true"></i>Print</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="purchase-bill-information" *ngIf="showSaleBill">
+    <div class="container">
+        <div #downloadableContent>
+            <ng-container *ngIf="showConsultationBill">
+                <app-consultation-invoice [responseData]="consultationResponse" [clinic]="clinic" [client]="client" ></app-consultation-invoice>
+            </ng-container>
+            <ng-container *ngIf="showFoodSaleBill">
+                <app-food-sale-invoice [responseData]="foodResponse" [clinic]="clinic" [client]="client" ></app-food-sale-invoice>
+            </ng-container>
+            <ng-container *ngIf="showMedicineSaleBill">
+                <app-medicine-sale-invoice [responseData]="medicineResponse" [clinic]="clinic" [client]="client"></app-medicine-sale-invoice>
+            </ng-container>
+
+        </div>
+        <div class="d-flex justify-content-center" style="gap:5px">
+            <button class="nextBtn" (click)="downloadAsPDF()"> <span class="btnText">Download
+                    invoice</span></button>
+            <button class="go-back" (click)="goBack()"> <span
+                    class="btnText">Go Back to Sales</span></button>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="showResponse">
+    <div class="modal fade show" style="display:block!important;" *ngIf="success">
+        <div class="modal-dialog  modal-dialog-centered modal-md">
+            <div class="modal-content modal-confirm">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    
+                </div>
+                <div class="modal-body text-center">
+                    <h4 >Details Updated</h4>
+                   
+                    <p class="text-success">Successfully </p>
+    
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade show" style="display:block!important;" *ngIf="errorAlert">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-reject ">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Sorry</h4>
+                    <p class="text-danger">Something went wrong. Try again</p>
+                    <p></p>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

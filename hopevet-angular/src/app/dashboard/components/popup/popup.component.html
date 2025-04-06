@@ -1,0 +1,10 @@
+
+<div class="popup-wrapper-overlay" (click)="closePopup()"></div>
+<div id="popup-wrapper" [class]="'popup-wrapper animated popup-lg'" [ngClass]="{'no-border-radius': !showBorderRadius, 'light-gray-bg': grayBgEnabled}">
+    <a class="close" *ngIf="showCloseIcon" (click)="closePopup()">
+        X
+    </a>
+    <div [id]="popupNavigationEnabled ? 'popupNavigation': '' ">
+        <ng-content></ng-content>
+    </div>
+</div>
