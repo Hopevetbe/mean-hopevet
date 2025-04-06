@@ -18,7 +18,7 @@ import { countersRouter } from "./routes/counters.routes.js";
 import {isAuthenticated} from "./controllers/auth.js";
 import { isDoctorAuthenticated} from "./controllers/doctorAuth.js";
 // configuring env 
-dotenv.config({path:path.join("config.env")}); 
+dotenv.config({path:"./hopevet-node/config.env"});
 
 const app = express();
 const PORT = process.env.PORT;
